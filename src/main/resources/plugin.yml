@@ -1,0 +1,15 @@
+name: ${project.name}
+version: ${project.version}-R${buildNumber}
+description: ${project.description}
+
+authors: [xDrapor, IchBinMude, m1enkrafftman]
+
+website: ${project.url}
+
+main: ${project.groupId}.${project.artifactId}
+
+commands:
+    safeguard:
+        description: SafeGuard command set.
+        aliases: [sg]
+        usage: /safeguard

@@ -58,6 +58,15 @@ checks:
         maxvl: 500
         kick: true
         kickmsg: "&1[SG] &bTried breaking blocks too quickly!"
+    blockbreak_frequency:
+        enabled: true
+        cooldown: 5.0
+        maxbps: 8
+        maxvl: 500
+        kick: true
+        kickmsg: "&1[SG] &bTried breaking blocks too quickly!"
+        pendingmsg: "&1[SG] &bPlease wait %c seconds before breaking another block!"
+        cooldownmsg: "&1[SG] &bYou can now break blocks again!"
     blockplace_reach:
         enabled: true
         buffer: 0.5

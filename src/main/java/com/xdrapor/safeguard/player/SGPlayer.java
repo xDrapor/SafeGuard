@@ -42,6 +42,7 @@ public class SGPlayer {
 
 	/** The last time this player broke a block. */
 	private long lastBlockBreakTime = 0L;
+	
 
 	/** The last time the player placed a block */
 	private long lastBlockPlaceTime = 0L;
@@ -52,6 +53,12 @@ public class SGPlayer {
 	/** A buffer to allow for lag */
 	private int packetBuffer = 50;
 
+	/** Number of blocks broken in a one second timeframe */
+	private int blocksBrokenFreq = 0;
+	
+	/** The last time we updated blocks broken **/
+	private long lastBlocksBrokenFreq = 0;
+	
 	/** The amount of packets sent by a player */
 	private int packets;
 	
@@ -150,6 +157,25 @@ public class SGPlayer {
 	public Location getFellTo() {
 		if(fellTo == null)return getPlayer().getLocation();
 		return (this.fellTo);
+	}
+	
+	public void incrementBlocksFreq() {
+		this.blocksBrokenFreq++;
+	}
+	
+	public int getBlocksFreq() {
+		return (this.blocksBrokenFreq);
+	}
+	public void resetBlocksFreq() {
+		this.blocksBrokenFreq = 0;
+	}
+	
+	public void setLastBlockBrokenFreq(long lastTime) {
+		this.lastBlocksBrokenFreq = lastTime;
+	}
+	
+	public long getLastBlockBrokenFreq() {
+		return (this.lastBlocksBrokenFreq);
 	}
 	
 	/** Sets the current safe location of the player. */

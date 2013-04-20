@@ -20,13 +20,13 @@ public class SGEventBlockBreak extends SGEventListener {
 			safeGuard.sgPlayerManager.getPlayer(event.getPlayer().getName()).setLastBlockHitTime(System.currentTimeMillis());	
 		}
 	}
-
+	
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void checkBlockBreak(BlockBreakEvent event) {
 		// This event produces both data for a check and executes the actual checks.
 		if (safeGuard.sgPlayerManager.isTracking(event.getPlayer())) {
 			safeGuard.sgPlayerManager.getPlayer(event.getPlayer().getName()).setLastBlockBreakTime(System.currentTimeMillis());
-
+			
 			for(SGCheck sgCheck : sgChecks) {
 				sgCheck.runCheck(event, safeGuard.sgPlayerManager.getPlayer(event.getPlayer().getName()));	
 			}
@@ -35,8 +35,8 @@ public class SGEventBlockBreak extends SGEventListener {
 
 	@Override
 	public void loadChecks() {
+		sgChecks.add(new SGCheckFrequency());
 		sgChecks.add(new SGCheckReach());
 		sgChecks.add(new SGCheckSpeed());
-		sgChecks.add(new SGCheckFrequency());
 	}
 }

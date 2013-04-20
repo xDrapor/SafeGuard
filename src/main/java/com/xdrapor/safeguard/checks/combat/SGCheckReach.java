@@ -35,9 +35,11 @@ public class SGCheckReach extends SGCheck {
 		
 		if(sgPermissions.hasPermission(player, SGPermissibleNodes.COMBAT_REACH) || !sgConfig.isCheckEnabled(this))return;
 		
-		if(3.8D < this.reachDistance) {
+		double maxDistance = sgConfig.getConfig().getDouble("checks.combat_reach.distance");
+		
+		if(maxDistance < this.reachDistance) {
 
-			safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).addVL(SGCheckTag.COMBAT_REACH, this.reachDistance - 3.8D);
+			safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).addVL(SGCheckTag.COMBAT_REACH, this.reachDistance - maxDistance);
 			
 			publishCheck(getClass(), sgPlayer, SGCheckTag.COMBAT_REACH);
 			

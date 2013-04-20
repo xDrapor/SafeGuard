@@ -24,19 +24,22 @@ public class SGCheckSpeed extends SGCheck {
 		
 		if(sgPermissions.hasPermission(player, SGPermissibleNodes.COMBAT_SPEED) || !sgConfig.isCheckEnabled(this))return;
 		
-		if (System.currentTimeMillis() - safeGuard.sgPlayerManager.getPlayer(sgPlayer.getPlayer().getName()).getLastHitTime() < 110) {
+		if (System.currentTimeMillis() - safeGuard.sgPlayerManager.getPlayer(sgPlayer.getPlayer().getName()).getLastHitTime() < (1000 / sgConfig.getConfig().getInt("checks.combat_speed.maxhits"))) {
 			safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).addVL(SGCheckTag.COMBAT_SPEED, System.currentTimeMillis() - safeGuard.sgPlayerManager.getPlayer(sgPlayer.getPlayer().getName()).getLastHitTime());
 			safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).setLastHitTime(System.currentTimeMillis());
-			if (safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).getVL(SGCheckTag.COMBAT_SPEED) > this.maxBuffer) {
+			if (safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).getVL(SGCheckTag.COMBAT_SPEED) > sgConfig.getConfig().getDouble("checks.combat_speed.buffer")) {
 				
 				publishCheck(getClass(), sgPlayer, SGCheckTag.COMBAT_SPEED);
 				
 				eDBeEvent.setCancelled(true);				
+				
 				return;
 			}
 		} else {
+			
 			safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).setLastHitTime(System.currentTimeMillis());
 			safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).reduceVL(SGCheckTag.COMBAT_SPEED);
+			
 			return;
 		}
 

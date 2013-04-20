@@ -81,7 +81,7 @@ public class SGCheckFlight extends SGCheck
 			return;
 		}
 
-		if(SGMovementUtil.getSafeDistanceHorizontal(sgPlayer) > 0.6) {
+		if(SGMovementUtil.getSafeDistanceHorizontal(sgPlayer) > sgConfig.getConfig().getDouble("checks.movement_flight.buffer")) {
 			safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).addVL(SGCheckTag.MOVEMENT_DISTANCE, SGMovementUtil.getSafeDistanceHorizontal(sgPlayer));
 
 			publishCheck(getClass(), sgPlayer, SGCheckTag.MOVEMENT_DISTANCE);

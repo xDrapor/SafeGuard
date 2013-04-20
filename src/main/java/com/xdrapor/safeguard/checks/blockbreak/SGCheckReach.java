@@ -36,7 +36,7 @@ public class SGCheckReach extends SGCheck {
 
 			safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).addVL(SGCheckTag.BLOCK_REACH, this.blockDistance - getReachDistance(sgPlayer));
 
-			if (safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).getVL(SGCheckTag.BLOCK_REACH) > this.maxBuffer) {
+			if (safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).getVL(SGCheckTag.BLOCK_REACH) > sgConfig.getConfig().getDouble("checks.blockbreak.reach.buffer")) {
 				
 				publishCheck(getClass(), sgPlayer, SGCheckTag.BLOCK_REACH);
 				blockBreakEvent.setCancelled(true);

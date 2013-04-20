@@ -9,6 +9,7 @@ permissions:
 checks:
     movement_flight:
         enabled: true
+        buffer: 0.6
         maxvl: 500
         kick: true
         kickmsg: "&1[SG] &bFlying is disabled on this server!"
@@ -34,21 +35,37 @@ checks:
         kickmsg: "&1[SG] &bSent too many packets!"
     combat_speed:
         enabled: true
+        buffer: 0.5
         maxvl: 500
+        maxhits: 8
         kick: true
         kickmsg: "&1[SG] &bTry hitting slower next time!"
     combat_reach:
         enabled: true
+        distance: 3.8
         maxvl: 500
         kick: true
         kickmsg: "&1[SG] &bTry reducing your hit range!"
     blockbreak_reach:
         enabled: true
+        buffer: 0.5
         maxvl: 500
         kick: true
         kickmsg: "&1[SG] &bTried hitting a block out of range!"
     blockbreak_speed:
         enabled: true
+        buffer: 0.5
         maxvl: 500
         kick: true
         kickmsg: "&1[SG] &bTried breaking blocks too quickly!"
+    blockplace_reach:
+        enabled: true
+        buffer: 0.5
+        maxvl: 500
+        kick: true
+        kickmsg: "&1[SG] &bTried placing a block out of range!"
+    blockplace_speed:
+        enabled: true
+        maxvl: 500
+        kick: true
+        kickmsg: "&1[SG] &bTried placing blocks too quickly!"

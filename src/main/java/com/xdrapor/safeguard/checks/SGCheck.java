@@ -25,7 +25,6 @@ public abstract class SGCheck implements ICore {
 
 	protected SGPermissibles sgPermissions = new SGPermissibles();
 	protected SGConfig sgConfig = new SGConfig();
-	protected double maxBuffer = 0.5;
 
 	/** The description of the check. */
 	public abstract String getDescription();

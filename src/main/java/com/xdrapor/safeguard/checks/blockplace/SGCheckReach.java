@@ -25,18 +25,18 @@ public class SGCheckReach extends SGCheck {
 		BlockPlaceEvent blockBreakEvent = (BlockPlaceEvent)event;
 		Player sgPlayer = player.getPlayer();
 
+		if(sgPermissions.hasPermission(player, SGPermissibleNodes.BLOCK_REACH) || !sgConfig.isCheckEnabled(this))return;
+		
 		// getDistance(n) Methods used from SGMovementUtil. If we need it more than this consider moving Methods from SGMovementUtil to SGCheck.
 		this.blockDistance = Math.abs(SGMovementUtil.getDistanceX(blockBreakEvent.getBlock().getLocation(), sgPlayer.getLocation(), false)
 									 + SGMovementUtil.getDistanceY(blockBreakEvent.getBlock().getLocation(), sgPlayer.getLocation(), false)
 									 + SGMovementUtil.getDistanceZ(blockBreakEvent.getBlock().getLocation(), sgPlayer.getLocation(), false));
 		
-		if(sgPermissions.hasPermission(player, SGPermissibleNodes.BLOCK_REACH) || !sgConfig.isCheckEnabled(this))return;
-		
 		if(getReachDistance(sgPlayer) < this.blockDistance) {
 
 			safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).addVL(SGCheckTag.BLOCK_REACH, this.blockDistance - getReachDistance(sgPlayer));
 
-			if (safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).getVL(SGCheckTag.BLOCK_REACH) > this.maxBuffer) {
+			if (safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).getVL(SGCheckTag.BLOCK_REACH) > sgConfig.getConfig().getDouble("checks.blockplace_reach.buffer")) {
 				
 				publishCheck(getClass(), sgPlayer, SGCheckTag.BLOCK_REACH);
 				blockBreakEvent.setCancelled(true);

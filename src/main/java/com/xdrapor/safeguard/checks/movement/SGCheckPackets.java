@@ -37,12 +37,16 @@ public class SGCheckPackets extends SGCheck{
 		//If the player's packet difference is less than
 		//that of the legal amount, they've failed the check
 		if(isTooMuch(time - player.getLastPacketTime())) {
+			
 			player.addVL(SGCheckTag.MOVEMENT_MOREPACKETS, packetDifference(player.getLastPacketTime()));
 			player.setLastPacketTime(time);
 			evt.setTo(player.getSafeLocation());
+			
 			publishCheck(getClass(), sgPlayer, SGCheckTag.MOVEMENT_MOREPACKETS);
+			
 			return;
-		}else {
+		} else {
+			
 			player.reduceVL(SGCheckTag.MOVEMENT_MOREPACKETS);
 			player.setLastPacketTime(time);
 			return;

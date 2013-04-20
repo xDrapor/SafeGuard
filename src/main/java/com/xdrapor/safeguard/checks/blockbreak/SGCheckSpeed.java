@@ -28,7 +28,7 @@ public class SGCheckSpeed extends SGCheck {
 		if(SGBlockUtil.getDurationVSTool(player, blockBreakEvent.getPlayer().getItemInHand(), blockBreakEvent.getBlock()) - SGBlockUtil.getPlayerBreakDuration(sgPlayer) > 100) {
 			safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).addVL(SGCheckTag.BLOCK_BREAKSPEED, SGBlockUtil.getDurationVSTool(player, blockBreakEvent.getPlayer().getItemInHand(), blockBreakEvent.getBlock()) - SGBlockUtil.getPlayerBreakDuration(sgPlayer));
 
-			if (safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).getVL(SGCheckTag.BLOCK_BREAKSPEED) > this.maxBuffer) {
+			if (safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).getVL(SGCheckTag.BLOCK_BREAKSPEED) > sgConfig.getConfig().getDouble("checks.blockbreak_speed.buffer")) {
 				
 				publishCheck(getClass(), sgPlayer, SGCheckTag.BLOCK_BREAKSPEED);
 				blockBreakEvent.setCancelled(true);

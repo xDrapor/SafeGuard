@@ -14,7 +14,8 @@ import com.xdrapor.safeguard.core.permissions.SGPermissibles;
 import com.xdrapor.safeguard.event.SGEventManager;
 import com.xdrapor.safeguard.player.SGPlayerManager;
 
-public class SafeGuard extends JavaPlugin implements ICore {
+public class SafeGuard extends JavaPlugin implements ICore 
+{
 	
 	/** The instance of SGLogManager. */
 	public SGLogManager sgLogManager;
@@ -38,7 +39,8 @@ public class SafeGuard extends JavaPlugin implements ICore {
 	 * @see org.bukkit.plugin.java.JavaPlugin#onDisable()
 	 */
 	@Override
-	public void onEnable() {
+	public void onEnable() 
+	{
 
 		sgLogManager		= new SGLogManager();
 		sgPermissions		= new SGPermissibles();
@@ -57,8 +59,8 @@ public class SafeGuard extends JavaPlugin implements ICore {
 	 * @see org.bukkit.plugin.java.JavaPlugin#onEnable()
 	 */
 	@Override
-	public void onDisable() {
-
+	public void onDisable()
+	{
 		sgEventManager.cleanUpListeners();
 		sgLogManager.fileHandler.close();
 		sgLogManager.getConsoleLogger().logInfo(sgPrefix + sgStringSeparator + "has been disabled!");

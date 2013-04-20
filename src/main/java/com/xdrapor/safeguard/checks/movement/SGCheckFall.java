@@ -20,44 +20,47 @@ public class SGCheckFall extends SGCheck {
 	@Override
 	public void runCheck(Event event, SGPlayer player) {
 
-		PlayerMoveEvent playerMoveEvent = (PlayerMoveEvent)event;
 
+		if(sgPermissions.hasPermission(player, SGPermissibleNodes.MOVEMENT_FALL) || !sgConfig.isCheckEnabled(this) || player == null || event == null)return;
+		
+		PlayerMoveEvent playerMoveEvent = (PlayerMoveEvent)event;
 		Player sgPlayer = player.getPlayer();
 
 		this.to = playerMoveEvent.getTo();
 		this.from = playerMoveEvent.getFrom();
 
-		if(sgPermissions.hasPermission(player, SGPermissibleNodes.MOVEMENT_FALL) || !sgConfig.isCheckEnabled(this))return;
 
+		if(!isCreative(sgPlayer)) {
 
-		if(SGMovementUtil.getFalling(to, from)) {
-			
-			if(!player.isFalling()) {
-				
-				player.setFalling(true);
-				player.setFellFrom(from);
-				player.setFallInitialHealth(sgPlayer.getHealth());
-			}
+			if(SGMovementUtil.getFalling(to, from)) {
 
-		} else {
-			
-			if(player.isFalling()) {
-				
-				player.setFellTo(sgPlayer.getLocation());
-				player.setFallFinalHealth(sgPlayer.getHealth());
-				int blocksFallen  = (int) SGMovementUtil.getDistanceVertical(player.getFellTo(), player.getFellFrom());
-			
-				if((player.getFallInitialHealth() - player.getFallFinalHealth() < (blocksFallen - 3)) && blocksFallen > 3) {
-					
-					int avoidedDiff = ((blocksFallen - 3) - (player.getFallInitialHealth() - player.getFallFinalHealth()));
-					sgPlayer.damage(avoidedDiff);
-					
-					safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).addVL(SGCheckTag.MOVEMENT_FALL, avoidedDiff * 10);
-					
-					publishCheck(getClass(), sgPlayer, SGCheckTag.MOVEMENT_FALL);
+				if(!player.isFalling()) {
+
+					player.setFalling(true);
+					player.setFellFrom(from);
+					player.setFallInitialHealth(sgPlayer.getHealth());
 				}
-				
-				player.resetFallingValues();
+
+			} else {
+
+				if(player.isFalling()) {
+
+					player.setFellTo(sgPlayer.getLocation());
+					player.setFallFinalHealth(sgPlayer.getHealth());
+					int blocksFallen  = (int) SGMovementUtil.getDistanceVertical(player.getFellTo(), player.getFellFrom());
+
+					if((player.getFallInitialHealth() - player.getFallFinalHealth() < (blocksFallen - 3)) && blocksFallen > 3) {
+
+						int avoidedDiff = ((blocksFallen - 3) - (player.getFallInitialHealth() - player.getFallFinalHealth()));
+						sgPlayer.damage(avoidedDiff);
+
+						safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).addVL(SGCheckTag.MOVEMENT_FALL, avoidedDiff * 10);
+
+						publishCheck(getClass(), sgPlayer, SGCheckTag.MOVEMENT_FALL);
+					}
+
+					player.resetFallingValues();
+				}
 			}
 		}
 	}

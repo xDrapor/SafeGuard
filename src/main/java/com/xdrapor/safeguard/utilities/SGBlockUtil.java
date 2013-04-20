@@ -27,9 +27,10 @@ public class SGBlockUtil implements ICore
 	public static double getPlayerBreakDuration(Player sgPlayer) {
 		return Math.round(safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).getLastBlockBreakTime() - safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).getLastBlockHitTime());
 	}
-	
+
 	/** Returns a block hardness value. */
 	public static double getHardness(Block block) {
+		if(block.getTypeId() == 0) return 0;
 		return net.minecraft.server.v1_5_R2.Block.byId[block.getTypeId()].l(((CraftWorld)block.getWorld()).getHandle(), block.getLocation().getBlockX(), block.getLocation().getBlockY(), block.getLocation().getBlockZ());
 	}
 
@@ -39,14 +40,14 @@ public class SGBlockUtil implements ICore
 		double currentBlockHardness = getHardness(block);
 		return Math.round((1000f * 5f * currentBlockHardness) / (currentToolMultiplier * 3.33f));
 	}
-	
+
 	/** Returns the closest ground Location relative to the specified Location. */
 	public static Location findClosestGroundToLocation(Player sgPlayer) {
 		Location highestBlock = sgPlayer.getWorld().getHighestBlockAt(sgPlayer.getLocation()).getLocation();
 
 		// Before you had an infinite loop until condition produced a result, what about 'The End' where your condition could possibly never return a result.
 		if (highestBlock == null) {	return sgPlayer.getWorld().getSpawnLocation(); }
-		
+
 		// Return highest block if player is above highest block.
 		if (sgPlayer.getLocation().getY() >= highestBlock.getY()) { return highestBlock; }
 
@@ -56,10 +57,10 @@ public class SGBlockUtil implements ICore
 				return sgPlayer.getLocation().subtract(0, i - 1, 0);
 			}
 		}
-		
+
 		return sgPlayer.getWorld().getSpawnLocation();
 	}
-	
+
 	/** Returns true if the specified Block is a fence. */
 	public static boolean isFence(final Block block) {
 		return block.getType() == Material.NETHER_FENCE || block.getType() == Material.FENCE;
@@ -80,7 +81,7 @@ public class SGBlockUtil implements ICore
 				|| block.getType() == Material.SMOOTH_STAIRS
 				|| block.getType() == Material.WOOD_DOUBLE_STEP;
 	}
-	
+
 	/** Returns true if the specified Block is snow. */
 	public static boolean isSnow(final Block block) {
 		return block.getType() == Material.SNOW;
@@ -90,7 +91,7 @@ public class SGBlockUtil implements ICore
 	public static boolean isLadder(Block block) {
 		return block.getType() == Material.LADDER;
 	}
-	
+
 	/** Returns whether a block is passable or not **/
 	public static boolean isPassable(final Player player, final IBlockAccess blockAccess, final double x, final double y, final double z, final int id) {
 		final int bx = Location.locToBlock(x);

@@ -20,8 +20,9 @@ public class SGCheckReach extends SGCheck {
 	}
 
 	@Override
-	public void runCheck(Event event, SGPlayer player) 
-	{
+	public void runCheck(Event event, SGPlayer player) {
+		
+		if(player == null || event == null)return;
 		BlockBreakEvent blockBreakEvent = (BlockBreakEvent)event;
 		Player sgPlayer = player.getPlayer();
 

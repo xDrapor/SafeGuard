@@ -20,8 +20,9 @@ public class SGCheckReach extends SGCheck {
 	}
 
 	@Override
-	public void runCheck(Event event, SGPlayer player) 
-	{
+	public void runCheck(Event event, SGPlayer player) {
+		
+		if(player == null || event == null)return;
 		EntityDamageByEntityEvent eDBeEvent = (EntityDamageByEntityEvent)event;
 		if(!(eDBeEvent.getDamager() instanceof Player))return;
 		

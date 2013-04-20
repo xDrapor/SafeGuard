@@ -19,6 +19,7 @@ public class SGCheckSpeed extends SGCheck {
 	@Override
 	public void runCheck(Event event, SGPlayer player) {
 		EntityDamageByEntityEvent eDBeEvent = (EntityDamageByEntityEvent)event;
+		if(player == null || event == null)return;
 		if(!(eDBeEvent.getDamager() instanceof Player))return;
 		Player sgPlayer = (Player)eDBeEvent.getDamager();
 		

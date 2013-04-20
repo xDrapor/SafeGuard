@@ -119,9 +119,14 @@ public abstract class SGCheck implements ICore {
 		return (sgPlayerHandle.hasEffect(MobEffectList.JUMP) ? (sgPlayerHandle.getEffect(MobEffectList.JUMP).getAmplifier() > 20 ? (1.5F * (float) (sgPlayerHandle.getEffect(MobEffectList.JUMP).getAmplifier() + 1)) : (1.2F * (float) (sgPlayerHandle.getEffect(MobEffectList.JUMP).getAmplifier() + 1))) : 1.0F);
 	}
 
-	/** Returns whether the player is in creative mode. */
-	public static boolean isCreative(Player sgPlayer) {
+	/** Returns whether the player is in creative flight. */
+	public static boolean isCreativeFlight(Player sgPlayer) {
 		return (sgPlayer.getGameMode() == GameMode.CREATIVE || sgPlayer.getAllowFlight());
+	}
+	
+	/** Returns whether the player is in creative flight. */
+	public static boolean isCreative(Player sgPlayer) {
+		return (sgPlayer.getGameMode() == GameMode.CREATIVE);
 	}
 
 	/** Returns whether the player is sprinting. */

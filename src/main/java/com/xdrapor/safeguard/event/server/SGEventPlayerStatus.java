@@ -12,8 +12,7 @@ import com.xdrapor.safeguard.player.SGPlayer;
 public class SGEventPlayerStatus extends SGEventListener {
 
 	@EventHandler(priority = EventPriority.MONITOR)
-	public void onConnecting(PlayerJoinEvent event)
-	{
+	public void onConnecting(PlayerJoinEvent event) {
 		if (event.getPlayer() == null) { return; }
 		
 		if(!safeGuard.sgPlayerManager.getPlayers().containsKey(event.getPlayer().getName())) {
@@ -23,26 +22,22 @@ public class SGEventPlayerStatus extends SGEventListener {
 	}
 	
 	@EventHandler(priority = EventPriority.MONITOR)
-	public void onDisconnecting(PlayerQuitEvent event)
-	{
+	public void onDisconnecting(PlayerQuitEvent event) {
 		if (event.getPlayer() == null) { return; }
 		
 		if(safeGuard.sgPlayerManager.getPlayers().containsKey(event.getPlayer().getName())) {
-			// TODO: What to do. (The SGCheck VL the player was kicked for needs reset on kick(?) otherwise they can't rejoin the server.)
 			safeGuard.sgPlayerManager.removePlayer(event.getPlayer().getName());
 			safeGuard.sgLogManager.getConsoleLogger().logInfo("Player" + sgStringSeparator + event.getPlayer().getDisplayName() + sgStringSeparator + "is no longer being tracked. (Player Disconnected)");
 		}
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR)
-	public void onKick(PlayerKickEvent event)
-	{
+	public void onKick(PlayerKickEvent event) {
 		if (event.getPlayer() == null) { return; }
 		
 		if(safeGuard.sgPlayerManager.getPlayers().containsKey(event.getPlayer().getName())) {
-			// TODO: What to do. (The SGCheck VL the player was kicked for needs reset on kick(?) otherwise they can't rejoin the server.)
 			safeGuard.sgPlayerManager.removePlayer(event.getPlayer().getName());
-			safeGuard.sgLogManager.getConsoleLogger().logInfo("Player" + sgStringSeparator + event.getPlayer().getDisplayName() + sgStringSeparator + "is no longer being tracked. (Player Kicked by SafeGuard)");
+			safeGuard.sgLogManager.getConsoleLogger().logInfo("Player" + sgStringSeparator + event.getPlayer().getDisplayName() + sgStringSeparator + "is no longer being tracked. (Player Kicked)");
 		}
 	}
 	

@@ -36,18 +36,18 @@ public class SGCheckInvalidMove extends SGCheck {
 		if(sgPermissions.hasPermission(player, SGPermissibleNodes.MOVEMENT_SPEED) || !sgConfig.isCheckEnabled(this))return;
 
 		//TODO: Allow moving out of blocks if head is free
-		if(!SGBlockUtil.isPassable(sgPlayer, iBlockAccess, playerMoveEvent.getTo().getBlockX(), playerMoveEvent.getTo().getBlockY() - 0.5, playerMoveEvent.getTo().getBlockZ(), playerMoveEvent.getTo().getBlock().getTypeId())){
+		if(!SGBlockUtil.isPassable(sgPlayer, iBlockAccess, to.getBlockX(), to.getBlockY(), to.getBlockZ(), to.getBlock().getTypeId())){
 			safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).addVL(SGCheckTag.MOVEMENT_INVALID, 20.0D);
 
 			publishCheck(getClass(), sgPlayer, SGCheckTag.MOVEMENT_INVALID);
-			
+
 			playerMoveEvent.setTo(this.from);
 
 			return;
 		}
 
 		if(isSprinting(sgPlayer)) {
-			if(SGMovementUtil.getDistanceHorizontal(this.to, this.from) == 0.0) {
+			if(SGMovementUtil.getDistanceHorizontal(this.to, this.from) == 0.0 || player.isBackPedalling(to)) {
 				safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).addVL(SGCheckTag.MOVEMENT_INVALID, 20.0D);
 
 				publishCheck(getClass(), sgPlayer, SGCheckTag.MOVEMENT_INVALID);
@@ -56,6 +56,7 @@ public class SGCheckInvalidMove extends SGCheck {
 
 				return;
 			}
+
 			//Player did nothing wrong, reward them.
 			safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).reduceVL(SGCheckTag.MOVEMENT_INVALID);
 		}

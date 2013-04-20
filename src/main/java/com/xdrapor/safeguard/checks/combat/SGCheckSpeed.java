@@ -28,7 +28,9 @@ public class SGCheckSpeed extends SGCheck {
 			safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).addVL(SGCheckTag.COMBAT_SPEED, System.currentTimeMillis() - safeGuard.sgPlayerManager.getPlayer(sgPlayer.getPlayer().getName()).getLastHitTime());
 			safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).setLastHitTime(System.currentTimeMillis());
 			if (safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).getVL(SGCheckTag.COMBAT_SPEED) > this.maxBuffer) {
+				
 				publishCheck(getClass(), sgPlayer, SGCheckTag.COMBAT_SPEED);
+				
 				eDBeEvent.setCancelled(true);				
 				return;
 			}

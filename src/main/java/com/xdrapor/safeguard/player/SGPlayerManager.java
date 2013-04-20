@@ -51,8 +51,7 @@ public class SGPlayerManager implements ICore {
 	/** Returns whether the specified player is online. */
 	public boolean isPlayerOnline(Player player) {
 		
-		for(Player examinedPlayer : safeGuard.getServer().getOnlinePlayers())
-		{
+		for(Player examinedPlayer : safeGuard.getServer().getOnlinePlayers()) {
 			if (examinedPlayer.getEntityId() == player.getEntityId()) {
 				return true;
 			}
@@ -62,10 +61,8 @@ public class SGPlayerManager implements ICore {
 	}
 	
 	/** Generates SGPlayer instances for all online players. */
-	public void loadOnlinePlayers()
-	{
-		for(Player player : safeGuard.getServer().getOnlinePlayers())
-		{
+	public void loadOnlinePlayers() {
+		for(Player player : safeGuard.getServer().getOnlinePlayers()) {
 			if(!safeGuard.sgPlayerManager.getPlayers().containsKey(player.getName())) {
 				safeGuard.sgPlayerManager.addPlayer(player.getName(), new SGPlayer(player.getName()));
 			}

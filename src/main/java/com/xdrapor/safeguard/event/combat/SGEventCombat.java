@@ -13,12 +13,9 @@ import com.xdrapor.safeguard.event.SGEventListener;
 public class SGEventCombat extends SGEventListener {
 
 	@EventHandler(priority = EventPriority.LOWEST)
-	public void checkEntityAttack(EntityDamageByEntityEvent event)
-	{
-		if(event.getDamager() instanceof Player)
-		{
-			for(SGCheck sgCheck : sgChecks)
-			{
+	public void checkEntityAttack(EntityDamageByEntityEvent event) {
+		if(event.getDamager() instanceof Player) {
+			for(SGCheck sgCheck : sgChecks) {
 				if (safeGuard.sgPlayerManager.isTracking((Player)event.getDamager())) {
 					sgCheck.runCheck(event, safeGuard.sgPlayerManager.getPlayer(((Player)event.getDamager()).getName()));	
 				}
@@ -27,8 +24,7 @@ public class SGEventCombat extends SGEventListener {
 	}
 	
 	@Override
-	public void loadChecks() 
-	{
+	public void loadChecks() {
 		sgChecks.add(new SGCheckReach());
 		sgChecks.add(new SGCheckSpeed());
 	}

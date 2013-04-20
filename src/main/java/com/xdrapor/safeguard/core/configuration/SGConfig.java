@@ -15,13 +15,11 @@ public class SGConfig implements ICore {
 	
 	/** Construct a new SGConfig instance. */
 	public SGConfig() {
-		
-		this.saveConfig();
+		saveConfig();
 	}
 	
 	/** Saves the current configuration file. */
-	public void saveConfig()
-	{
+	public void saveConfig() {
 		getConfig().options().copyDefaults(true);
 		getConfig().options().header(sgPrefix + sgStringSeparator + sgVersion);
 		getConfig().options().copyHeader(true);

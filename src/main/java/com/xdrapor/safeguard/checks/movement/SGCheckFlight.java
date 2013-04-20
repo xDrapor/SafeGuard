@@ -50,9 +50,7 @@ public class SGCheckFlight extends SGCheck
 		
 		// EXTREMELY strict. Legitimate players will have no problems at all.
 		if (!onGround(sgPlayer)) {
-			
-			// TODO: Apply the fall damage on reconnect after kick when setSafeLocation occurs in SGEventPlayerStatus... the VL will be there... kill the hacking SOB :D
-			
+						
 			if (safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).getNextExpectedY() == -1) {
 				safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).setNextExpectedY(sgPlayer.getLocation().getY() + sgPlayer.getVelocity().getY());
 				return;

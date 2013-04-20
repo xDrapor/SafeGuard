@@ -29,8 +29,7 @@ public class SGEventBlockBreak extends SGEventListener
 		if (safeGuard.sgPlayerManager.isTracking(event.getPlayer())) {
 			safeGuard.sgPlayerManager.getPlayer(event.getPlayer().getName()).setLastBlockBreakTime(System.currentTimeMillis());
 			
-			for(SGCheck sgCheck : sgChecks)
-			{
+			for(SGCheck sgCheck : sgChecks) {
 				if (safeGuard.sgPlayerManager.isTracking(event.getPlayer())) {
 					sgCheck.runCheck(event, safeGuard.sgPlayerManager.getPlayer(event.getPlayer().getName()));	
 				}

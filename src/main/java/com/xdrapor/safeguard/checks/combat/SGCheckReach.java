@@ -38,7 +38,9 @@ public class SGCheckReach extends SGCheck {
 		if(3.8D < this.reachDistance) {
 
 			safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).addVL(SGCheckTag.COMBAT_REACH, this.reachDistance - 3.8D);
+			
 			publishCheck(getClass(), sgPlayer, SGCheckTag.COMBAT_REACH);
+			
 			eDBeEvent.setCancelled(true);
 			return;
 		}

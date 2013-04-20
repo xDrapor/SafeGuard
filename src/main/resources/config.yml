@@ -12,6 +12,16 @@ checks:
         maxvl: 500
         kick: true
         kickmsg: "&1[SG] &bFlying is disabled on this server!"
+    movement_invalidmove:
+        enabled: true
+        maxvl: 500
+        kick: true
+        kickmsg: "&1[SG] &bInvalid move!"
+    movement_fall:
+        enabled: true
+        maxvl: 500
+        kick: true
+        kickmsg: "&1[SG] &bTrying to avoid that fall damage, huh?"
     movement_speed:
         enabled: true
         maxvl: 500

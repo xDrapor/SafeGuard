@@ -12,6 +12,7 @@ public class SGPermissibleNodes {
 	public static final String MOVEMENT_SPEED			= "safeguard.movement.speed";
 	public static final String MOVEMENT_INVALID			= "safeguard.movement.invalid";
 	public static final String MOVEMENT_MOREPACKETS		= "safeguard.movement.morepackets";
+	public static final String MOVEMENT_FALL			= "safeguard.movement.fall";
 	
 	public static final String BLOCK_REACH				= "safeguard.block.reach";
 	public static final String BLOCK_SPEED				= "safeguard.block.speed";

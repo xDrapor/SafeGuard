@@ -23,10 +23,8 @@ import com.xdrapor.safeguard.player.SGPlayer;
  */
 public class SGBlockUtil implements ICore
 {
-
-	// TODO: Rename this method as it's too vague.
 	/** Returns the time between the last block break and last block hit times of the specified SGPlayer. */
-	public static double getDuration(Player sgPlayer) {
+	public static double getPlayerBreakDuration(Player sgPlayer) {
 		return Math.round(safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).getLastBlockBreakTime() - safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).getLastBlockHitTime());
 	}
 	
@@ -93,31 +91,30 @@ public class SGBlockUtil implements ICore
 		return block.getType() == Material.LADDER;
 	}
 	
-	/** Returns true if the block is passable **/ 
-	public static boolean isPassable(final Player sgPlayer, final IBlockAccess blockAccess, final double x, final double y, final double z, final int id) {
+	/** Returns whether a block is passable or not **/
+	public static boolean isPassable(final Player player, final IBlockAccess blockAccess, final double x, final double y, final double z, final int id) {
 		final int bx = Location.locToBlock(x);
 		final int by = Location.locToBlock(y);
 		final int bz = Location.locToBlock(z);
 		final net.minecraft.server.v1_5_R2.Block block = net.minecraft.server.v1_5_R2.Block.byId[id];
-		final Block craftBlock = sgPlayer.getWorld().getBlockAt((int)x, (int)y, (int)z);
+		final Block craftBlock = player.getWorld().getBlockAt((int)x, (int)y, (int)z);
 		if(block == null || craftBlock == null)return true;
-		if(craftBlock.isLiquid() || craftBlock.isEmpty())return true;
 		final double fx = x - bx;
 		final double fy = y - by;
 		final double fz = z - bz;
-		if (fx < block.x() || fx >= block.x() || fy < block.y() || fy >= block.y() || fz < block.z() || fz >= block.v()) return true;
+		if (craftBlock.isLiquid() || craftBlock.isEmpty() || fx < block.u() || fx >= block.v() || fy < block.w() || fy >= block.x() || fz < block.y() || fz >= block.z()) return true;
 		else {
-			if (SGMovementUtil.isAboveStairs(sgPlayer)){if ((blockAccess.getData(bx, by, bz) & 0x4) != 0){if (fy < 0.5) return true;}else if (fy >= 0.5) return true; }
+			if (SGMovementUtil.isAboveStairs(player))if ((blockAccess.getData(bx, by, bz) & 0x4) != 0)if (fy < 0.5) return true;else if (fy >= 0.5) return true;
 			else if (id == Material.WOODEN_DOOR.getId()) return true;
 			else if (id == Material.IRON_DOOR_BLOCK.getId()) return true;
-			else if (sgPlayer.getLocation().getBlock().getRelative(BlockFace.NORTH).getType() == Material.WOODEN_DOOR) return false;
-			else if (sgPlayer.getLocation().getBlock().getRelative(BlockFace.NORTH).getType() == Material.IRON_DOOR_BLOCK) return false;
+			else if (player.getLocation().getBlock().getRelative(BlockFace.NORTH).getType() == Material.WOODEN_DOOR) return false;
+			else if (player.getLocation().getBlock().getRelative(BlockFace.NORTH).getType() == Material.IRON_DOOR_BLOCK) return false;
 			else if (id == Material.SOUL_SAND.getId() && fy >= 0.875) return true; // 0.125
 			else if (id == Material.SAND.getId() && fy >= 0.975) return true; // 0.025
-			else if (id == Material.IRON_FENCE.getId() || id == Material.THIN_GLASS.getId()){if (Math.abs(0.5 - fx) > 0.05 && Math.abs(0.5 - fz) > 0.05) return true;}
-			else if (id == Material.FENCE.getId() || id == Material.NETHER_FENCE.getId()){if (Math.abs(0.2 - fx) > 0.02 && Math.abs(0.2 - fz) > 0.02) return true;}
+			else if (id == Material.IRON_FENCE.getId() || id == Material.THIN_GLASS.getId())if (Math.abs(0.5 - fx) > 0.05 && Math.abs(0.5 - fz) > 0.05) return true;
+			else if (id == Material.FENCE.getId() || id == Material.NETHER_FENCE.getId())if (Math.abs(0.2 - fx) > 0.02 && Math.abs(0.2 - fz) > 0.02) return true;
 			else if (id == Material.FENCE_GATE.getId() && (blockAccess.getData(bx, by, bz) & 0x4)!= 0) return true;
-			else if (id == Material.CAKE_BLOCK.getId() && fy >= 0.4375) return true; // 0.0625 = 0.125 / 2
+			else if (id == Material.CAKE_BLOCK.getId() && fy >= 0.4375) return true; 
 			else if (id == Material.CAULDRON.getId()){if (Math.abs(0.5 - fx) < 0.1 && Math.abs(0.5 - fz) < 0.1 && fy > 0.1) return true;}
 			else if (id == Material.WATER.getId())return true;
 			else if (id == Material.SNOW.getId())return true;
@@ -126,6 +123,4 @@ public class SGBlockUtil implements ICore
 			return false;
 		}
 	}
-
-
 }

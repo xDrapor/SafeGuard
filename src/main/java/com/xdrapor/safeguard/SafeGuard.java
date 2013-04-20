@@ -14,8 +14,7 @@ import com.xdrapor.safeguard.core.permissions.SGPermissibles;
 import com.xdrapor.safeguard.event.SGEventManager;
 import com.xdrapor.safeguard.player.SGPlayerManager;
 
-public class SafeGuard extends JavaPlugin implements ICore
-{
+public class SafeGuard extends JavaPlugin implements ICore {
 	
 	/** The instance of SGLogManager. */
 	public SGLogManager sgLogManager;
@@ -66,8 +65,7 @@ public class SafeGuard extends JavaPlugin implements ICore
 	}
 	
 	/** Returns the version of SafeGuard. */
-	public String getVersion()
-	{	
+	public String getVersion() {	
 
 		InputStream stream = getClass().getResourceAsStream("/version.prop");
 		

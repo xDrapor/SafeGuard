@@ -23,10 +23,10 @@ public class SGCheckReach extends SGCheck {
 	public void runCheck(Event event, SGPlayer player) {
 		
 		if(player == null || event == null)return;
+		if(sgPermissions.hasPermission(player, SGPermissibleNodes.BLOCK_REACH) || !sgConfig.isCheckEnabled(this))return;
+		
 		BlockPlaceEvent blockBreakEvent = (BlockPlaceEvent)event;
 		Player sgPlayer = player.getPlayer();
-
-		if(sgPermissions.hasPermission(player, SGPermissibleNodes.BLOCK_REACH) || !sgConfig.isCheckEnabled(this))return;
 		
 		// getDistance(n) Methods used from SGMovementUtil. If we need it more than this consider moving Methods from SGMovementUtil to SGCheck.
 		this.blockDistance = Math.abs(SGMovementUtil.getDistanceX(blockBreakEvent.getBlock().getLocation(), sgPlayer.getLocation(), false)

@@ -21,8 +21,10 @@ public class SGCheckReach extends SGCheck {
 
 	@Override
 	public void runCheck(Event event, SGPlayer player) {
-		
+	
 		if(player == null || event == null)return;
+		if(sgPermissions.hasPermission(player, SGPermissibleNodes.COMBAT_REACH) || !sgConfig.isCheckEnabled(this))return;
+		
 		EntityDamageByEntityEvent eDBeEvent = (EntityDamageByEntityEvent)event;
 		if(!(eDBeEvent.getDamager() instanceof Player))return;
 		
@@ -32,9 +34,6 @@ public class SGCheckReach extends SGCheck {
 		this.reachDistance = 		Math.abs(SGMovementUtil.getDistanceX(eDBeEvent.getEntity().getLocation(), sgPlayer.getLocation(), false)
 									 + SGMovementUtil.getDistanceY(eDBeEvent.getEntity().getLocation(), sgPlayer.getLocation(), false)
 									 + SGMovementUtil.getDistanceZ(eDBeEvent.getEntity().getLocation(), sgPlayer.getLocation(), false));
-
-		
-		if(sgPermissions.hasPermission(player, SGPermissibleNodes.COMBAT_REACH) || !sgConfig.isCheckEnabled(this))return;
 		
 		double maxDistance = sgConfig.getConfig().getDouble("checks.combat_reach.distance");
 		

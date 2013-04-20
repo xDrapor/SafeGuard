@@ -21,12 +21,12 @@ public class SGCheckPackets extends SGCheck{
 
 	@Override
 	public void runCheck(Event event, SGPlayer player) {
+	
+		if(player == null || event == null)return;
+		if(sgPermissions.hasPermission(player, SGPermissibleNodes.MOVEMENT_MOREPACKETS) || !sgConfig.isCheckEnabled(this))return;
+		
 		Player sgPlayer = player.getPlayer();
 		PlayerMoveEvent evt = (PlayerMoveEvent)event;
-		
-		
-		if(sgPermissions.hasPermission(player, SGPermissibleNodes.MOVEMENT_MOREPACKETS) || !sgConfig.isCheckEnabled(this))return;
-
 		
 		if(SGMovementUtil.getSafeLocation(player.getPlayer()) == null)
 			SGMovementUtil.setSafeLocation(player.getPlayer());

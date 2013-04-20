@@ -20,8 +20,8 @@ public class SGCheckFall extends SGCheck {
 	@Override
 	public void runCheck(Event event, SGPlayer player) {
 
-
-		if(sgPermissions.hasPermission(player, SGPermissibleNodes.MOVEMENT_FALL) || !sgConfig.isCheckEnabled(this) || player == null || event == null)return;
+		if(player == null || event == null)return;
+		if(sgPermissions.hasPermission(player, SGPermissibleNodes.MOVEMENT_FALL) || !sgConfig.isCheckEnabled(this))return;
 		
 		PlayerMoveEvent playerMoveEvent = (PlayerMoveEvent)event;
 		Player sgPlayer = player.getPlayer();

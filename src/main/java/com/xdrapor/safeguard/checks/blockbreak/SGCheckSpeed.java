@@ -21,11 +21,11 @@ public class SGCheckSpeed extends SGCheck {
 	public void runCheck(Event event, SGPlayer player) {
 
 		if(player == null || event == null)return;
+		if(sgPermissions.hasPermission(player, SGPermissibleNodes.BLOCK_SPEED) || !sgConfig.isCheckEnabled(this))return;
+		
 		BlockBreakEvent blockBreakEvent = (BlockBreakEvent)event;
 		Player sgPlayer = player.getPlayer();
 		
-		if(sgPermissions.hasPermission(player, SGPermissibleNodes.BLOCK_SPEED) || !sgConfig.isCheckEnabled(this))return;
-
 		if(SGBlockUtil.getDurationVSTool(player, blockBreakEvent.getPlayer().getItemInHand(), blockBreakEvent.getBlock()) - SGBlockUtil.getPlayerBreakDuration(sgPlayer) > 100) {
 			safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).addVL(SGCheckTag.BLOCK_BREAKSPEED, SGBlockUtil.getDurationVSTool(player, blockBreakEvent.getPlayer().getItemInHand(), blockBreakEvent.getBlock()) - SGBlockUtil.getPlayerBreakDuration(sgPlayer));
 

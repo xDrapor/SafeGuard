@@ -16,7 +16,5 @@ public class SGCheckSpeed extends SGCheck {
 	@Override
 	public void runCheck(Event event, SGPlayer player) {
 		if(player == null || event == null)return;
-		
 	}
-
 }

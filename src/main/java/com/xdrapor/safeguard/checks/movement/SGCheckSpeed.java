@@ -21,13 +21,14 @@ public class SGCheckSpeed extends SGCheck {
 	@Override
 	public void runCheck(Event event, SGPlayer player) {
 
+		if(player == null || event == null)return;
+		if(sgPermissions.hasPermission(player, SGPermissibleNodes.MOVEMENT_SPEED) || !sgConfig.isCheckEnabled(this))return;
+		
 		PlayerMoveEvent playerMoveEvent = (PlayerMoveEvent)event;
 		Player sgPlayer = player.getPlayer();
 		
 		this.to = playerMoveEvent.getTo();
 		this.from = playerMoveEvent.getFrom();
-		
-		if(sgPermissions.hasPermission(player, SGPermissibleNodes.MOVEMENT_SPEED) || !sgConfig.isCheckEnabled(this))return;
 
 		if(((getSpeedAmplifier(((CraftPlayer)sgPlayer).getHandle()) * getPlayerSpeed(sgPlayer)) * 1.3) < SGMovementUtil.getDistanceHorizontal(this.to, this.from)) {
 			safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).addVL(SGCheckTag.MOVEMENT_SPEED, (SGMovementUtil.getDistanceHorizontal(this.to, this.from) * 10) - (getSpeedAmplifier(((CraftPlayer)sgPlayer).getHandle()) * getPlayerSpeed(sgPlayer)));

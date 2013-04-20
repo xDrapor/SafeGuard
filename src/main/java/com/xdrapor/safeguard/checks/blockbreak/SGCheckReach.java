@@ -23,6 +23,8 @@ public class SGCheckReach extends SGCheck {
 	public void runCheck(Event event, SGPlayer player) {
 		
 		if(player == null || event == null)return;
+		if(sgPermissions.hasPermission(player, SGPermissibleNodes.BLOCK_REACH) || !sgConfig.isCheckEnabled(this))return;
+		
 		BlockBreakEvent blockBreakEvent = (BlockBreakEvent)event;
 		Player sgPlayer = player.getPlayer();
 
@@ -30,8 +32,6 @@ public class SGCheckReach extends SGCheck {
 		this.blockDistance = Math.abs(SGMovementUtil.getDistanceX(blockBreakEvent.getBlock().getLocation(), sgPlayer.getLocation(), false)
 									 + SGMovementUtil.getDistanceY(blockBreakEvent.getBlock().getLocation(), sgPlayer.getLocation(), false)
 									 + SGMovementUtil.getDistanceZ(blockBreakEvent.getBlock().getLocation(), sgPlayer.getLocation(), false));
-		
-		if(sgPermissions.hasPermission(player, SGPermissibleNodes.BLOCK_REACH) || !sgConfig.isCheckEnabled(this))return;
 		
 		if(getReachDistance(sgPlayer) < this.blockDistance) {
 

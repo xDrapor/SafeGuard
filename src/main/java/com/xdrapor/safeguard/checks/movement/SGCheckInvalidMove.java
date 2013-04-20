@@ -24,16 +24,15 @@ public class SGCheckInvalidMove extends SGCheck {
 	@Override
 	public void runCheck(Event event, SGPlayer player) {
 
+		if(player == null || event == null)return;
+		if(sgPermissions.hasPermission(player, SGPermissibleNodes.MOVEMENT_INVALID) || !sgConfig.isCheckEnabled(this))return;
+		
 		PlayerMoveEvent playerMoveEvent = (PlayerMoveEvent)event;
-
 		Player sgPlayer = player.getPlayer();
-
 		IBlockAccess iBlockAccess = ((CraftWorld)sgPlayer.getWorld()).getHandle();
 
 		this.to = playerMoveEvent.getTo();
 		this.from = playerMoveEvent.getFrom();
-
-		if(sgPermissions.hasPermission(player, SGPermissibleNodes.MOVEMENT_INVALID) || !sgConfig.isCheckEnabled(this))return;
 
 		//TODO: Allow moving out of blocks if head is free
 		if(!SGBlockUtil.isPassable(sgPlayer, iBlockAccess, to.getBlockX(), to.getBlockY(), to.getBlockZ(), to.getBlock().getTypeId())){

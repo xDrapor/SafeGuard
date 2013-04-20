@@ -18,12 +18,14 @@ public class SGCheckSpeed extends SGCheck {
 
 	@Override
 	public void runCheck(Event event, SGPlayer player) {
-		EntityDamageByEntityEvent eDBeEvent = (EntityDamageByEntityEvent)event;
+		
 		if(player == null || event == null)return;
+		if(sgPermissions.hasPermission(player, SGPermissibleNodes.COMBAT_SPEED) || !sgConfig.isCheckEnabled(this))return;
+		
+		EntityDamageByEntityEvent eDBeEvent = (EntityDamageByEntityEvent)event;
 		if(!(eDBeEvent.getDamager() instanceof Player))return;
 		Player sgPlayer = (Player)eDBeEvent.getDamager();
-		
-		if(sgPermissions.hasPermission(player, SGPermissibleNodes.COMBAT_SPEED) || !sgConfig.isCheckEnabled(this))return;
+	
 		
 		if (System.currentTimeMillis() - safeGuard.sgPlayerManager.getPlayer(sgPlayer.getPlayer().getName()).getLastHitTime() < (1000 / sgConfig.getConfig().getInt("checks.combat_speed.maxhits"))) {
 			safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).addVL(SGCheckTag.COMBAT_SPEED, System.currentTimeMillis() - safeGuard.sgPlayerManager.getPlayer(sgPlayer.getPlayer().getName()).getLastHitTime());

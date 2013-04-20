@@ -18,8 +18,17 @@ import com.xdrapor.safeguard.event.SGEventListener;
 import com.xdrapor.safeguard.utilities.SGBlockUtil;
 import com.xdrapor.safeguard.utilities.SGMovementUtil;
 
-public class SGEventMovement extends SGEventListener
-{
+public class SGEventMovement extends SGEventListener {	
+	
+	@EventHandler(priority = EventPriority.LOWEST)
+	public void checkPlayerRespawn(PlayerRespawnEvent event) {
+		// This event does not produce a check, it only sets the data for the SGPlayer instance.
+		if (safeGuard.sgPlayerManager.isTracking(event.getPlayer())) {
+			SGMovementUtil.setSafeLocationSpawn(event.getPlayer());
+			safeGuard.sgPlayerManager.getPlayer(event.getPlayer().getName()).resetFallingValues();
+		}
+	}
+	
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void checkPlayerMovement(PlayerMoveEvent event) {
 		
@@ -32,16 +41,6 @@ public class SGEventMovement extends SGEventListener
 			if (safeGuard.sgPlayerManager.isTracking(event.getPlayer())) {
 				sgCheck.runCheck(event, safeGuard.sgPlayerManager.getPlayer(event.getPlayer().getName()));
 			}
-		}
-	}
-
-
-	@EventHandler(priority = EventPriority.LOWEST)
-	public void checkPlayerRespawn(PlayerRespawnEvent event) {
-		// This event does not produce a check, it only sets the data for the SGPlayer instance.
-		if (safeGuard.sgPlayerManager.isTracking(event.getPlayer())) {
-			SGMovementUtil.setSafeLocationSpawn(event.getPlayer());
-			safeGuard.sgPlayerManager.getPlayer(event.getPlayer().getName()).resetFallingValues();
 		}
 	}
 

@@ -123,10 +123,6 @@ public class SGPlayer {
 	/** Resets all values related to falling */
 	public void resetFallingValues() {
 		this.falling = false;
-		this.initialHealth = 0;
-		this.finalHealth = 0;
-		this.fellFrom = null;
-		this.fellTo = null;
 	}
 	
 	/** Returns the current safe location of the player. */

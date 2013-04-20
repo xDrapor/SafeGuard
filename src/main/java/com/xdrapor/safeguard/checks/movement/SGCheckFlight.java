@@ -27,8 +27,7 @@ public class SGCheckFlight extends SGCheck
 	}
 
 	@Override
-	public void runCheck(Event event, SGPlayer player) 
-	{
+	public void runCheck(Event event, SGPlayer player)  {
 		
 		if(sgPermissions.hasPermission(player, SGPermissibleNodes.MOVEMENT_FLIGHT) || !sgConfig.isCheckEnabled(this) || isCreative(player.getPlayer()))return;
 		

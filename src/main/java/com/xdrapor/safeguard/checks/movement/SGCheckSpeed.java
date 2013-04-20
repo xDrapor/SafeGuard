@@ -33,7 +33,9 @@ public class SGCheckSpeed extends SGCheck {
 			safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).addVL(SGCheckTag.MOVEMENT_SPEED, (SGMovementUtil.getDistanceHorizontal(this.to, this.from) * 10) - (getSpeedAmplifier(((CraftPlayer)sgPlayer).getHandle()) * getPlayerSpeed(sgPlayer)));
 			
 			if (safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).getVL(SGCheckTag.MOVEMENT_SPEED) > 6) {
+				
 				publishCheck(getClass(), sgPlayer, SGCheckTag.MOVEMENT_SPEED);
+				
 				playerMoveEvent.setTo(this.from);
 			}
 

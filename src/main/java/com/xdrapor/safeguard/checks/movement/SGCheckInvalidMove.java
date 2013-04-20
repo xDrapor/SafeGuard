@@ -33,7 +33,7 @@ public class SGCheckInvalidMove extends SGCheck {
 		this.to = playerMoveEvent.getTo();
 		this.from = playerMoveEvent.getFrom();
 
-		if(sgPermissions.hasPermission(player, SGPermissibleNodes.MOVEMENT_SPEED) || !sgConfig.isCheckEnabled(this))return;
+		if(sgPermissions.hasPermission(player, SGPermissibleNodes.MOVEMENT_INVALID) || !sgConfig.isCheckEnabled(this))return;
 
 		//TODO: Allow moving out of blocks if head is free
 		if(!SGBlockUtil.isPassable(sgPlayer, iBlockAccess, to.getBlockX(), to.getBlockY(), to.getBlockZ(), to.getBlock().getTypeId())){

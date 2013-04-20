@@ -29,24 +29,34 @@ public class SGCheckFall extends SGCheck {
 
 		if(sgPermissions.hasPermission(player, SGPermissibleNodes.MOVEMENT_FALL) || !sgConfig.isCheckEnabled(this))return;
 
+
 		if(SGMovementUtil.getFalling(to, from)) {
-			player.setFalling(true);
-			player.setFellFrom(from);
-			player.setFallInitialHealth(sgPlayer.getHealth());
+			
+			if(!player.isFalling()) {
+				
+				player.setFalling(true);
+				player.setFellFrom(from);
+				player.setFallInitialHealth(sgPlayer.getHealth());
+			}
+
 		} else {
+			
 			if(player.isFalling()) {
+				
 				player.setFellTo(sgPlayer.getLocation());
 				player.setFallFinalHealth(sgPlayer.getHealth());
-				int blocksFallen  = (int) Math.round((SGMovementUtil.getDistanceVertical(player.getFellTo(), player.getFellFrom())  * 10));
+				int blocksFallen  = (int) SGMovementUtil.getDistanceVertical(player.getFellTo(), player.getFellFrom());
 			
 				if((player.getFallInitialHealth() - player.getFallFinalHealth() < (blocksFallen - 3)) && blocksFallen > 3) {
-					int avoidedDiff = ((blocksFallen) - (player.getFallInitialHealth() - player.getFallFinalHealth()));
+					
+					int avoidedDiff = ((blocksFallen - 3) - (player.getFallInitialHealth() - player.getFallFinalHealth()));
 					sgPlayer.damage(avoidedDiff);
 					
 					safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).addVL(SGCheckTag.MOVEMENT_FALL, avoidedDiff * 10);
 					
 					publishCheck(getClass(), sgPlayer, SGCheckTag.MOVEMENT_FALL);
 				}
+				
 				player.resetFallingValues();
 			}
 		}

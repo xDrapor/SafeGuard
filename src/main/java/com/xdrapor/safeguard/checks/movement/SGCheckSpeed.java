@@ -32,12 +32,13 @@ public class SGCheckSpeed extends SGCheck {
 		this.from = playerMoveEvent.getFrom();
 		
 		if(SGMovementUtil.getDistanceY(to, from, false) >= 1.0) {
+			
 			playerMoveEvent.setTo(SGBlockUtil.findClosestGroundToLocation(sgPlayer));
 
 			safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).addVL(SGCheckTag.MOVEMENT_SPEED, (SGMovementUtil.getDistanceVertical(this.to, this.from) * 10));
 			
 			publishCheck(getClass(), sgPlayer, SGCheckTag.MOVEMENT_SPEED);
-
+		
 		}
 		
 		if(((getSpeedAmplifier(((CraftPlayer)sgPlayer).getHandle()) * getPlayerSpeed(sgPlayer)) * 1.3) < SGMovementUtil.getDistanceHorizontal(this.to, this.from) && !player.isOnLily()) {

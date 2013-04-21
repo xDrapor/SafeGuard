@@ -49,7 +49,7 @@ public class SGCheckFall extends SGCheck {
 				player.setFallFinalHealth(sgPlayer.getHealth());
 				int blocksFallen  = (int) SGMovementUtil.getDistanceVertical(player.getFellTo(), player.getFellFrom());
 
-				if((player.getFallInitialHealth() - player.getFallFinalHealth() < (blocksFallen - 3)) && blocksFallen > 3 && !inLiquid(sgPlayer)) {
+				if((player.getFallInitialHealth() - player.getFallFinalHealth() < (blocksFallen - 3)) && blocksFallen > 3 && (!player.getFellTo().getBlock().isLiquid())) {
 
 					int avoidedDiff = ((blocksFallen - 3) - (player.getFallInitialHealth() - player.getFallFinalHealth()));
 					sgPlayer.damage(avoidedDiff);

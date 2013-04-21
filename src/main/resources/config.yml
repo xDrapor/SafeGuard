@@ -65,7 +65,7 @@ checks:
     blockbreak_frequency:
         enabled: true
         cooldown: 5.0
-        maxbps: 10
+        maxbps: 8
         maxvl: 500
         kick: true
         kickmsg: "&1[SG] &bTried breaking blocks too quickly!"

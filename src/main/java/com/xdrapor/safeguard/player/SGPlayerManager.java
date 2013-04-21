@@ -3,6 +3,7 @@ package com.xdrapor.safeguard.player;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import com.xdrapor.safeguard.core.ICore;
@@ -17,12 +18,7 @@ public class SGPlayerManager implements ICore {
 
 	/** A map of player UserNames and their SGPlayer counterpart. */
 	public Map<String, SGPlayer> sgPlayerData = new HashMap<String, SGPlayer>();
-	
-	/** Construct a new SGPlayerManager instance. */
-	public SGPlayerManager() {
-		this.loadOnlinePlayers();
-	}
-	
+
 	/** Adds an SGPlayer instance for SafeGuard to track. */
 	public void addPlayer(String username, SGPlayer sgPlayer) {
 		this.sgPlayerData.put(username, sgPlayer);
@@ -62,7 +58,7 @@ public class SGPlayerManager implements ICore {
 	
 	/** Generates SGPlayer instances for all online players. */
 	public void loadOnlinePlayers() {
-		for(Player player : safeGuard.getServer().getOnlinePlayers()) {
+		for(Player player : Bukkit.getServer().getOnlinePlayers()) {
 			if(!safeGuard.sgPlayerManager.getPlayers().containsKey(player.getName())) {
 				safeGuard.sgPlayerManager.addPlayer(player.getName(), new SGPlayer(player.getName()));
 			}

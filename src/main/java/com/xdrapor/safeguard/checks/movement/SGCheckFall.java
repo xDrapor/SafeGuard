@@ -30,7 +30,7 @@ public class SGCheckFall extends SGCheck {
 		this.from = playerMoveEvent.getFrom();
 
 
-		if(!isCreativeFlight(sgPlayer) && sgPlayer.isFlying() || !isCreative(sgPlayer)) {
+		if((!isCreativeFlight(sgPlayer) && sgPlayer.isFlying()) && !isCreative(sgPlayer)) {
 
 			if(SGMovementUtil.getFalling(to, from)) {
 

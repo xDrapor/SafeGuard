@@ -39,8 +39,7 @@ public class SafeGuard extends JavaPlugin implements ICore
 	 * @see org.bukkit.plugin.java.JavaPlugin#onDisable()
 	 */
 	@Override
-	public void onEnable() 
-	{
+	public void onEnable()  {
 
 		sgLogManager		= new SGLogManager();
 		sgPermissions		= new SGPermissibles();
@@ -48,6 +47,10 @@ public class SafeGuard extends JavaPlugin implements ICore
 		sgPlayerManager		= new SGPlayerManager();
 		sgEventManager		= new SGEventManager();
 		
+		//Load all online players.
+		sgPlayerManager.loadOnlinePlayers();
+		
+		//Gets the SafeGuard command.
 		getCommand("safeguard").setExecutor(sgCommandManager = new SGCommandManager());
 		
 		// Log completion to console.

@@ -1,42 +1,77 @@
-<<center>>
-{{http://dev.bukkit.org/media/images/55/85/safeguardlogo.png|SafeGuard}}
+![SafeGuard](http://dev.bukkit.org/media/images/55/85/safeguardlogo.png)
+
+What makes SafeGuard different?
 ----
-== **What makes SafeGuard different?**==
-----
-<</center>>
+
 A major difference we can state as compared to other anti-cheat plugins, is the minimal amount of false-positives, while retaining its brute-force checks on cheaters, making it frustrating for the cheaters to even cheat once during the game! A plugin may have strict checks, which will prevent cheaters, however, this also affects normal players, which is something our team strongly disagrees with. We want to create a plugin that does not alter normal game-play, and forces cheaters to adhere by normal game-play, without sacrificing the players who are playing legitimately.
-----
-<<center>> == **Currently features the following checks** ==<</center>>
-----
-|=Check|=Decription|
-|**Break-Reach**| Prevents the breaking of blocks.|
-|**Combat-Reach**| Prevents combat out of range.|
-|**Place-Reach**| Prevents placing out of range.|
-|**Survival-Flight**| Prevents unauthorized flight.|
-|**Creative-Flight**| Prevents moving too fast in creative flight.|
-|**Water-Walking**| Prevents velocity increases by solidifying water client sided.|
-|**Water-Hopping**| Prevents players from changing their y-motion in excessively above water.|
-|**Self-Attack**| Prevents people from using the self attack exploit to gain bypasses over checks.|
-|**Attack-Speed**| Limits attack speed accurately to break hacks such as "forcefield" or "killaura".|
-|**Fast-Break**| Limits the speed of breaking blocks.|
-|**Survival-Nuker**| Prevents survival nukers.|
-|**Creative-Nuker**| Prevents creative nukers, with a configurable cooldown. |
-|**Speed-Hacks**| Prevents moving too fast on land.|
-|**Glide-Hacks**| Prevents players from gliding in air.|
-|**Back-Pedal**| Prevents unreasonable back-pedaling (sprinting backwards). |
-|**No-Clip**| Prevents the use of no-clip and passing through blocks.|
-|**V-Clip**| Prevents going down and up blocks and passing through blocks.|
-|**No-Fall**| Prevents players from avoiding fall damage by making sure they get the damage. |
-----
-<<center>>== **Currently working on** ==<</center>>
-----
-The following ARE listed in order of priority:
-* BlockPlace speed check
-* Interact checks
-* Flood checks
-* Proxy checks
 
 ----
-<<center>>== **Sponsors** ==<</center>>
+Currently features the following checks
 ----
-<<center>>[[http://craftyourbox.com|{{http://i.imgur.com/te3g0dC.png|CraftYourBox - Hosting made easy!}}]]<</center>>
+
+<table>
+  <tr>
+    <th>Check</th><th>Description</th>
+  </tr>
+  <tr>
+   <td>Break-Reach</td><td>Prevents the breaking of blocks out of range.</td>
+  </tr>
+  <tr>
+   <td>Combat-Reach</td><td>Prevents combat out of range.</td>
+  </tr>
+  <tr>
+   <td>Place-Reach</td><td>Prevents placing out of range.</td>
+  </tr>
+  <tr>
+   <td>Survival-Flight</td><td>Prevents unauthorized flight.</td>
+  </tr>
+  <tr>
+   <td>Creative-Flight</td><td>Prevents moving too fast in creative flight.</td>
+  </tr>
+  <tr>
+   <td>Water-Walking</td><td>Prevents velocity increases by solidifying water client sided.</td>
+  </tr>
+  <tr>
+   <td>Water-Hopping</td><td>Prevents velocity increases by solidifying water client sided.</td>
+  </tr>
+  <tr>
+   <td>Self-Attack</td><td>Prevents people from using the self attack exploit to gain bypasses over checks.</td>
+  </tr>
+  <tr>
+   <td>Attack-Speed</td><td>Limits attack speed accurately to break hacks such as "forcefield" or "killaura".</td>
+  </tr>
+  <tr>
+   <td>Fast-Break</td><td> Limits the speed of breaking blocks.</td>
+  </tr>
+  <tr>
+   <td>Survival-Nuker</td><td>Prevents survival nukers.</td>
+  </tr>
+  <tr>
+   <td>Creative-Nuker</td><td>Prevents creative nukers, with a configurable cooldown.</td>
+  </tr>
+  <tr>
+   <td>Speed-Hacks</td><td>Prevents moving too fast on land.</td>
+  </tr>
+  <tr>
+   <td>Glide-Hacks</td><td>Prevents players from gliding in air.</td>
+  </tr>
+  <tr>
+   <td>Back-Pedal</td><td>Prevents unreasonable back-pedaling (sprinting backwards).</td>
+  </tr>
+  <tr>
+   <td>No-Clip</td><td>Prevents the use of no-clip and passing through blocks.</td>
+  </tr>
+  <tr>
+   <td>V-Clip</td><td>Prevents going down and up blocks and passing through blocks.</td>
+  </tr>
+  <tr>
+   <td>No-Fall</td><td>Prevents players from avoiding fall damage by making sure they get the damage.</td>
+  </tr>
+  
+  
+</table>
+
+----
+Sponsors
+----
+![CraftYourBox - Hosting made easy!](http://i.imgur.com/te3g0dC.png)

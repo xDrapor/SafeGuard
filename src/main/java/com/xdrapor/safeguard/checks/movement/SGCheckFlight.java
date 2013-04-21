@@ -48,7 +48,7 @@ public class SGCheckFlight extends SGCheck
 		// Handle going over height level.
 		if (sgPlayer.getLocation().getY() >= sgPlayer.getWorld().getMaxHeight() - 0.75D) { playerMoveEvent.setTo(SGMovementUtil.getSafeLocation(sgPlayer)); }
 		
-		// EXTREMELY strict. Legitimate players will have no problems at all.
+		// EXTREMELY strict. Legitimate players will have no problems at all. 
 		if (!onGround(sgPlayer)) {
 						
 			if (safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).getNextExpectedY() == -1) {

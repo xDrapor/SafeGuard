@@ -56,7 +56,7 @@ Currently features the following checks
    <td>Glide-Hacks</td><td>Prevents players from gliding in air.</td>
   </tr>
   <tr>
-   <td>Back-Pedal</td><td>Prevents unreasonable back-pedaling (sprinting backwards).</td>
+   <td>Step</td><td>Prevents players from using the step hack.</td>
   </tr>
   <tr>
    <td>No-Clip</td><td>Prevents the use of no-clip and passing through blocks.</td>

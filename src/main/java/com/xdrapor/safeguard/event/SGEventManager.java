@@ -35,16 +35,14 @@ public class SGEventManager  implements ICore {
 	/** Registers all SafeGuard Event listeners. */
 	public void registerListeners()
 	{
-		for(SGEventListener listener : systemListeners)
-		{
+		for(SGEventListener listener : systemListeners) {
 			listener.loadChecks();
 			Bukkit.getPluginManager().registerEvents(listener, Bukkit.getPluginManager().getPlugin("SafeGuard"));
 		}
 	}
 
 	/** Destroys all SafeGuard Event listeners. */
-	public void cleanUpListeners()
-	{
+	public void cleanUpListeners() {
 		systemListeners.clear();
 	}
 }

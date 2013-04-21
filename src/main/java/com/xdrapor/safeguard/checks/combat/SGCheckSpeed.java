@@ -19,18 +19,18 @@ public class SGCheckSpeed extends SGCheck {
 	@Override
 	public void runCheck(Event event, SGPlayer player) {
 		
+		
+		//TODO: Begin long term tracking for constant speeds with no variation.
 		if(player == null || event == null)return;
 		if(sgPermissions.hasPermission(player, SGPermissibleNodes.COMBAT_SPEED) || !sgConfig.isCheckEnabled(this))return;
 		
 		EntityDamageByEntityEvent eDBeEvent = (EntityDamageByEntityEvent)event;
-		if(!(eDBeEvent.getDamager() instanceof Player))return;
 		Player sgPlayer = (Player)eDBeEvent.getDamager();
 	
-		
-		if (System.currentTimeMillis() - safeGuard.sgPlayerManager.getPlayer(sgPlayer.getPlayer().getName()).getLastHitTime() < (1000 / sgConfig.getConfig().getInt("checks.combat_speed.maxhits"))) {
-			safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).addVL(SGCheckTag.COMBAT_SPEED, System.currentTimeMillis() - safeGuard.sgPlayerManager.getPlayer(sgPlayer.getPlayer().getName()).getLastHitTime());
-			safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).setLastHitTime(System.currentTimeMillis());
-			if (safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).getVL(SGCheckTag.COMBAT_SPEED) > sgConfig.getConfig().getDouble("checks.combat_speed.buffer")) {
+		if (System.currentTimeMillis() - player.getLastHitTime() < (1000 / sgConfig.getConfig().getInt("checks.combat_speed.maxhits"))) {
+			player.addVL(SGCheckTag.COMBAT_SPEED, System.currentTimeMillis() - safeGuard.sgPlayerManager.getPlayer(sgPlayer.getPlayer().getName()).getLastHitTime());
+			player.setLastHitTime(System.currentTimeMillis());
+			if (player.getVL(SGCheckTag.COMBAT_SPEED) > sgConfig.getConfig().getDouble("checks.combat_speed.buffer")) {
 				
 				publishCheck(getClass(), sgPlayer, SGCheckTag.COMBAT_SPEED);
 				
@@ -40,12 +40,10 @@ public class SGCheckSpeed extends SGCheck {
 			}
 		} else {
 			
-			safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).setLastHitTime(System.currentTimeMillis());
-			safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).reduceVL(SGCheckTag.COMBAT_SPEED);
+			player.setLastHitTime(System.currentTimeMillis());
+			player.reduceVL(SGCheckTag.COMBAT_SPEED);
 			
 			return;
 		}
-
 	}
-
 }

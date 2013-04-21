@@ -61,8 +61,10 @@ public abstract class SGCheck implements ICore {
 			safeGuard.sgLogManager.getConsoleLogger().logSevere (getLogMessage(sgPlayer, tag));
 			safeGuard.sgLogManager.getFileLogger().logSevere	(getLogMessage(sgPlayer, tag));
 
-			if(safeGuard.sgConfig.getConfig().getBoolean("checks." + clazz.getPackage().getName().split("\\.")[4].toLowerCase() + "_" + clazz.getSimpleName().replace("SGCheck", "").toLowerCase() + ".kick")) {
-				Bukkit.broadcastMessage(sgPlayer.getDisplayName() + " was KICKED for " + tag.toString() + " violations.");
+			if(safeGuard.sgConfig.getConfig().getBoolean("checks." + clazz.getPackage().getName().split("\\.")[4].toLowerCase() + "_" + clazz.getSimpleName().replace("SGCheck", "").toLowerCase() + ".kick") && safeGuard.sgConfig.getConfig().getBoolean("global.kick")) {
+				if(safeGuard.getConfig().getBoolean("global.broadcastkick")) {
+					safeGuard.getServer().broadcastMessage(safeGuard.sgConfig.getConfig().getString("global.broadcastmsg").replace("%dp", sgPlayer.getDisplayName()).replace("%p", sgPlayer.getName()).replace("%v", tag.name()).replaceAll("(&([a-f0-9]))", "\u00A7$2"));
+				}
 				sgPlayer.getPlayer().kickPlayer(safeGuard.sgConfig.getConfig().getString("checks." + clazz.getPackage().getName().split("\\.")[4].toLowerCase() + "_" + clazz.getSimpleName().replace("SGCheck", "").toLowerCase()  + ".kickmsg").replaceAll("(&([a-f0-9]))", "\u00A7$2"));
 			}
 		}

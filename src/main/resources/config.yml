@@ -6,6 +6,10 @@ permissions:
     opallperms: false
     opingame: false
     opdebug: false
+global:
+    kick: true
+    broadcastkick: true
+    broadcastmsg: "&1[SG] &c%p was kicked for %v violations!"
 checks:
     movement_flight:
         enabled: true

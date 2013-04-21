@@ -38,7 +38,7 @@ public class SGCheckFlight extends SGCheck
 		this.to = playerMoveEvent.getTo();
 		this.from = playerMoveEvent.getFrom();
 
-		if(onGround(sgPlayer) || inLiquid(sgPlayer)) {
+		if(onGround(sgPlayer) || inLiquid(sgPlayer) || player.isOnLily()) {
 			SGMovementUtil.setSafeLocation(sgPlayer);
 			safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).setNextExpectedY(-1.0D);
 			

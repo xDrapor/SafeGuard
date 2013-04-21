@@ -91,25 +91,35 @@ public class SGBlockUtil implements ICore
 	public static boolean isLadder(Block block) {
 		return block.getType() == Material.LADDER;
 	}
-
+	
+	/** Checks to see if the specified block is a vine. */
+	public boolean isClimbable(final Block block){
+		return block.getType() == Material.VINE || block.getType() == Material.LADDER;
+	}
+	
+	/** Checks to see if the specified block is a lily. */
+	public boolean isLily(final Block block){
+		return block.getType() == Material.WATER_LILY;
+	}
+	
 	/** Returns whether a block is passable or not **/
-	public static boolean isPassable(final Player player, final IBlockAccess blockAccess, final double x, final double y, final double z, final int id) {
+	public static boolean isPassable(final SGPlayer player, final IBlockAccess blockAccess, final double x, final double y, final double z, final int id) {
 		final int bx = Location.locToBlock(x);
 		final int by = Location.locToBlock(y);
 		final int bz = Location.locToBlock(z);
 		final net.minecraft.server.v1_5_R2.Block block = net.minecraft.server.v1_5_R2.Block.byId[id];
-		final Block craftBlock = player.getWorld().getBlockAt((int)x, (int)y, (int)z);
+		final Block craftBlock = player.getPlayer().getWorld().getBlockAt((int)x, (int)y, (int)z);
 		if(block == null || craftBlock == null)return true;
 		final double fx = x - bx;
 		final double fy = y - by;
 		final double fz = z - bz;
-		if (craftBlock.isLiquid() || craftBlock.isEmpty() || fx < block.u() || fx >= block.v() || fy < block.w() || fy >= block.x() || fz < block.y() || fz >= block.z()) return true;
+		if (craftBlock.isLiquid() || craftBlock.isEmpty() || player.isOnLily() || player.isClimbing() || fx < block.u() || fx >= block.v() || fy < block.w() || fy >= block.x() || fz < block.y() || fz >= block.z()) return true;
 		else {
-			if (SGMovementUtil.isAboveStairs(player))if ((blockAccess.getData(bx, by, bz) & 0x4) != 0)if (fy < 0.5) return true;else if (fy >= 0.5) return true;
+			if (SGMovementUtil.isAboveStairs(player.getPlayer()))if ((blockAccess.getData(bx, by, bz) & 0x4) != 0)if (fy < 0.5) return true;else if (fy >= 0.5) return true;
 			else if (id == Material.WOODEN_DOOR.getId()) return true;
 			else if (id == Material.IRON_DOOR_BLOCK.getId()) return true;
-			else if (player.getLocation().getBlock().getRelative(BlockFace.NORTH).getType() == Material.WOODEN_DOOR) return false;
-			else if (player.getLocation().getBlock().getRelative(BlockFace.NORTH).getType() == Material.IRON_DOOR_BLOCK) return false;
+			else if (player.getPlayer().getLocation().getBlock().getRelative(BlockFace.NORTH).getType() == Material.WOODEN_DOOR) return false;
+			else if (player.getPlayer().getLocation().getBlock().getRelative(BlockFace.NORTH).getType() == Material.IRON_DOOR_BLOCK) return false;
 			else if (id == Material.SOUL_SAND.getId() && fy >= 0.875) return true; // 0.125
 			else if (id == Material.SAND.getId() && fy >= 0.975) return true; // 0.025
 			else if (id == Material.IRON_FENCE.getId() || id == Material.THIN_GLASS.getId())if (Math.abs(0.5 - fx) > 0.05 && Math.abs(0.5 - fz) > 0.05) return true;
@@ -118,6 +128,9 @@ public class SGBlockUtil implements ICore
 			else if (id == Material.CAKE_BLOCK.getId() && fy >= 0.4375) return true; 
 			else if (id == Material.CAULDRON.getId()){if (Math.abs(0.5 - fx) < 0.1 && Math.abs(0.5 - fz) < 0.1 && fy > 0.1) return true;}
 			else if (id == Material.WATER.getId())return true;
+			else if (id == Material.LADDER.getId())return true;
+			else if (id == Material.VINE.getId())return true;
+			else if (id == Material.WATER_LILY.getId())return true;
 			else if (id == Material.SNOW.getId())return true;
 			else if (id == Material.AIR.getId())return true;
 			else if (id == Material.CACTUS.getId() && fy >= 0.9375) return true;

@@ -35,7 +35,7 @@ public class SGCheckInvalidMove extends SGCheck {
 		this.from = playerMoveEvent.getFrom();
 
 		//TODO: Allow moving out of blocks if head is free
-		if(!SGBlockUtil.isPassable(sgPlayer, iBlockAccess, to.getBlockX(), to.getBlockY(), to.getBlockZ(), to.getBlock().getTypeId())){
+		if(!SGBlockUtil.isPassable(player, iBlockAccess, to.getBlockX(), to.getBlockY(), to.getBlockZ(), to.getBlock().getTypeId())){
 			safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).addVL(SGCheckTag.MOVEMENT_INVALID, 20.0D);
 
 			publishCheck(getClass(), sgPlayer, SGCheckTag.MOVEMENT_INVALID);

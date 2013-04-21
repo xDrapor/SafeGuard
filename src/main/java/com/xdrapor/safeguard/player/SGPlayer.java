@@ -6,8 +6,11 @@ import java.util.Map;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 
+import com.xdrapor.safeguard.utilities.SGBlockUtil;
 import com.xdrapor.safeguard.utilities.SGCheckTag;
 import com.xdrapor.safeguard.utilities.SGMovementUtil;
 
@@ -324,6 +327,37 @@ public class SGPlayer {
 				|| directionFacing.equals("Northwest") && directionMoving.equals("Southwest")
 				|| directionFacing.equals("Southwest") && directionMoving.equals("Northwest");
 		return backPedalling;
+	}
+	
+	/**
+	 * Checks to see if the player is on a vine, or a ladder.
+	 * @param player
+	 * @return boolean
+	 */
+	public boolean isClimbing() {
+		//Checks the various blockfaces and retrives the relative block to check.
+		final SGBlockUtil blockData = new SGBlockUtil();
+		final Block block = player.getLocation().getBlock();
+		return (blockData.isClimbable(block) || blockData.isClimbable(block.getRelative(BlockFace.NORTH)) || blockData.isClimbable(block.getRelative(BlockFace.SOUTH)) || blockData.isClimbable(block.getRelative(BlockFace.EAST)) || blockData.isClimbable(block.getRelative(BlockFace.WEST)) || blockData.isClimbable(block.getRelative(BlockFace.SOUTH_WEST)) || blockData.isClimbable(block.getRelative(BlockFace.NORTH_WEST))||  blockData.isClimbable(block.getRelative(BlockFace.SOUTH_EAST)) || blockData.isClimbable(block.getRelative(BlockFace.NORTH_EAST)));
+	}
+	
+
+	/**
+	 * Checks to see if the player is on a vine, or a ladder.
+	 * @param player
+	 * @return boolean
+	 */
+	public boolean isOnLily() {
+		//Checks the various blockfaces and retrives the relative block to check.
+		final SGBlockUtil blockData = new SGBlockUtil();
+		final Block block = player.getLocation().getBlock();
+		//Checks on jump
+		final Block blockLower = player.getLocation().subtract(0, 0.1, 0).add(0.5, 0, 0).getBlock();
+		final Block blockLowest = player.getLocation().subtract(0, 0.2, 0).add(0.5, 0, 0).getBlock();
+		//Returns if any
+		return (blockData.isLily(block) || blockData.isLily(blockLower) || blockData.isLily(blockLowest) || blockData.isLily(block.getRelative(BlockFace.NORTH)) || blockData.isLily(block.getRelative(BlockFace.SOUTH)) || blockData.isLily(block.getRelative(BlockFace.EAST)) || blockData.isLily(block.getRelative(BlockFace.WEST)) || blockData.isLily(block.getRelative(BlockFace.SOUTH_WEST)) || blockData.isLily(block.getRelative(BlockFace.NORTH_WEST))||  blockData.isLily(block.getRelative(BlockFace.SOUTH_EAST)) || blockData.isLily(block.getRelative(BlockFace.NORTH_EAST)))
+				|| blockData.isLily(blockLower.getRelative(BlockFace.NORTH)) || blockData.isLily(blockLower.getRelative(BlockFace.SOUTH)) || blockData.isLily(blockLower.getRelative(BlockFace.EAST)) || blockData.isLily(blockLower.getRelative(BlockFace.WEST)) || blockData.isLily(blockLower.getRelative(BlockFace.SOUTH_WEST)) || blockData.isLily(blockLower.getRelative(BlockFace.NORTH_WEST))||  blockData.isLily(blockLower.getRelative(BlockFace.SOUTH_EAST)) || blockData.isLily(blockLower.getRelative(BlockFace.NORTH_EAST))
+				|| blockData.isLily(blockLowest.getRelative(BlockFace.NORTH)) || blockData.isLily(blockLowest.getRelative(BlockFace.SOUTH)) || blockData.isLily(blockLowest.getRelative(BlockFace.EAST)) || blockData.isLily(blockLowest.getRelative(BlockFace.WEST)) || blockData.isLily(blockLowest.getRelative(BlockFace.SOUTH_WEST)) || blockData.isLily(blockLowest.getRelative(BlockFace.NORTH_WEST))||  blockData.isLily(blockLowest.getRelative(BlockFace.SOUTH_EAST)) || blockData.isLily(blockLowest.getRelative(BlockFace.NORTH_EAST));
 	}
 
 	/** Returns the back pedal diff **/

@@ -67,6 +67,9 @@ Currently features the following checks
   <tr>
    <td>No-Fall</td><td>Prevents players from avoiding fall damage by making sure they get the damage.</td>
   </tr>
+  <tr>
+   <td>Spider-Hacks</td><td>Prevents players from climbing up walls.</td>
+  </tr>
   
   
 </table>

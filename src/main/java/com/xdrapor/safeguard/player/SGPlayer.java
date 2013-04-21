@@ -12,7 +12,6 @@ import org.bukkit.entity.Player;
 
 import com.xdrapor.safeguard.utilities.SGBlockUtil;
 import com.xdrapor.safeguard.utilities.SGCheckTag;
-import com.xdrapor.safeguard.utilities.SGMovementUtil;
 
 /**
  * Represents a player currently tracked by SafeGuard.
@@ -303,30 +302,6 @@ public class SGPlayer {
 	/** Sets the next expected Y position of the player. */
 	public void setNextExpectedY(double nextExpectedY) {
 		this.nextExpectedY = nextExpectedY;
-	}
-
-	/** Returns if the player is backpedalling or not **/
-	public boolean isBackPedalling(Location to) {
-		double rot = (this.player.getLocation().getYaw() - 90) % 360;
-		if (rot < 0) {
-			rot += 360.0;
-		}
-		String directionFacing = SGMovementUtil.getDirection(rot);
-		double locRot = (to.getYaw() - 90) % 360;
-		if(locRot < 0) {
-			locRot += 360.0;
-		}
-		String directionMoving = SGMovementUtil.getDirection(locRot);
-
-		boolean backPedalling = directionFacing.equals("North") && directionMoving.equals("South") 
-				|| directionFacing.equals("South") && directionMoving.equals("North")
-				|| directionFacing.equals("West") && directionMoving.equals("East")
-				|| directionFacing.equals("East") && directionMoving.equals("West")
-				|| directionFacing.equals("Northeast") && directionMoving.equalsIgnoreCase("Southeast")
-				|| directionFacing.equals("Southeast") && directionMoving.equals("Northeast")
-				|| directionFacing.equals("Northwest") && directionMoving.equals("Southwest")
-				|| directionFacing.equals("Southwest") && directionMoving.equals("Northwest");
-		return backPedalling;
 	}
 	
 	/**

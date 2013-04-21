@@ -12,7 +12,6 @@ import com.xdrapor.safeguard.core.permissions.SGPermissibleNodes;
 import com.xdrapor.safeguard.player.SGPlayer;
 import com.xdrapor.safeguard.utilities.SGBlockUtil;
 import com.xdrapor.safeguard.utilities.SGCheckTag;
-import com.xdrapor.safeguard.utilities.SGMovementUtil;
 
 public class SGCheckInvalidMove extends SGCheck {
 
@@ -26,7 +25,7 @@ public class SGCheckInvalidMove extends SGCheck {
 
 		if(player == null || event == null)return;
 		if(sgPermissions.hasPermission(player, SGPermissibleNodes.MOVEMENT_INVALID) || !sgConfig.isCheckEnabled(this))return;
-		
+
 		PlayerMoveEvent playerMoveEvent = (PlayerMoveEvent)event;
 		Player sgPlayer = player.getPlayer();
 		IBlockAccess iBlockAccess = ((CraftWorld)sgPlayer.getWorld()).getHandle();
@@ -34,7 +33,7 @@ public class SGCheckInvalidMove extends SGCheck {
 		this.to = playerMoveEvent.getTo();
 		this.from = playerMoveEvent.getFrom();
 
-		
+
 		if(!SGBlockUtil.isPassable(player, iBlockAccess, to.getBlockX(), to.getBlockY(), to.getBlockZ(), to.getBlock().getTypeId())){
 			if(!sgPlayer.getEyeLocation().getBlock().isEmpty() && !to.getBlock().isEmpty()) {
 				safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).addVL(SGCheckTag.MOVEMENT_INVALID, 20.0D);
@@ -46,20 +45,7 @@ public class SGCheckInvalidMove extends SGCheck {
 				return;
 			}
 		}
-
-		if(isSprinting(sgPlayer)) {
-			if(SGMovementUtil.getDistanceHorizontal(this.to, this.from) == 0.0 || player.isBackPedalling(to) && SGMovementUtil.getDistanceHorizontal(to, from) > 0) {
-				safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).addVL(SGCheckTag.MOVEMENT_INVALID, 20.0D);
-
-				publishCheck(getClass(), sgPlayer, SGCheckTag.MOVEMENT_INVALID);
-
-				playerMoveEvent.setTo(this.from);
-
-				return;
-			}
-
-			//Player did nothing wrong, reward them.
-			safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).reduceVL(SGCheckTag.MOVEMENT_INVALID);
-		}
+		//Player did nothing wrong, reward them.
+		safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).reduceVL(SGCheckTag.MOVEMENT_INVALID);
 	}
 }

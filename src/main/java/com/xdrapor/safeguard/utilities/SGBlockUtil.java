@@ -93,12 +93,12 @@ public class SGBlockUtil implements ICore
 	}
 	
 	/** Checks to see if the specified block is a vine. */
-	public boolean isClimbable(final Block block){
+	public static boolean isClimbable(final Block block){
 		return block.getType() == Material.VINE || block.getType() == Material.LADDER;
 	}
 	
 	/** Checks to see if the specified block is a lily. */
-	public boolean isLily(final Block block){
+	public static boolean isLily(final Block block){
 		return block.getType() == Material.WATER_LILY;
 	}
 	

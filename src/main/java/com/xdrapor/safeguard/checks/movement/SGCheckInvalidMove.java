@@ -48,7 +48,7 @@ public class SGCheckInvalidMove extends SGCheck {
 		}
 
 		if(isSprinting(sgPlayer)) {
-			if(SGMovementUtil.getDistanceHorizontal(this.to, this.from) == 0.0 || player.isBackPedalling(to)) {
+			if(SGMovementUtil.getDistanceHorizontal(this.to, this.from) == 0.0 || player.isBackPedalling(to) && SGMovementUtil.getDistanceHorizontal(to, from) > 0) {
 				safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).addVL(SGCheckTag.MOVEMENT_INVALID, 20.0D);
 
 				publishCheck(getClass(), sgPlayer, SGCheckTag.MOVEMENT_INVALID);

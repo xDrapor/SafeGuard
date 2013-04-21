@@ -64,4 +64,3 @@ public class SGCheckFall extends SGCheck {
 		}
 	}
 }
-}

@@ -113,7 +113,7 @@ public class SGBlockUtil implements ICore
 		final double fx = x - bx;
 		final double fy = y - by;
 		final double fz = z - bz;
-		if (craftBlock.isLiquid() || craftBlock.isEmpty() || player.isOnLily() || player.isClimbing() || fx < block.u() || fx >= block.v() || fy < block.w() || fy >= block.x() || fz < block.y() || fz >= block.z()) return true;
+		if (craftBlock.isLiquid() || craftBlock.isEmpty() || player.isOnLily() || player.isClimbing() || player.isOnSnow() || fx < block.u() || fx >= block.v() || fy < block.w() || fy >= block.x() || fz < block.y() || fz >= block.z()) return true;
 		else {
 			if (SGMovementUtil.isAboveStairs(player.getPlayer()))if ((blockAccess.getData(bx, by, bz) & 0x4) != 0)if (fy < 0.5) return true;else if (fy >= 0.5) return true;
 			else if (id == Material.WOODEN_DOOR.getId()) return true;

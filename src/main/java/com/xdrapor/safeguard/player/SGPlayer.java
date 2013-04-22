@@ -332,6 +332,24 @@ public class SGPlayer {
 				|| SGBlockUtil.isLily(blockLower.getRelative(BlockFace.NORTH)) || SGBlockUtil.isLily(blockLower.getRelative(BlockFace.SOUTH)) || SGBlockUtil.isLily(blockLower.getRelative(BlockFace.EAST)) || SGBlockUtil.isLily(blockLower.getRelative(BlockFace.WEST)) || SGBlockUtil.isLily(blockLower.getRelative(BlockFace.SOUTH_WEST)) || SGBlockUtil.isLily(blockLower.getRelative(BlockFace.NORTH_WEST))||  SGBlockUtil.isLily(blockLower.getRelative(BlockFace.SOUTH_EAST)) || SGBlockUtil.isLily(blockLower.getRelative(BlockFace.NORTH_EAST))
 				|| SGBlockUtil.isLily(blockLowest.getRelative(BlockFace.NORTH)) || SGBlockUtil.isLily(blockLowest.getRelative(BlockFace.SOUTH)) || SGBlockUtil.isLily(blockLowest.getRelative(BlockFace.EAST)) || SGBlockUtil.isLily(blockLowest.getRelative(BlockFace.WEST)) || SGBlockUtil.isLily(blockLowest.getRelative(BlockFace.SOUTH_WEST)) || SGBlockUtil.isLily(blockLowest.getRelative(BlockFace.NORTH_WEST))||  SGBlockUtil.isLily(blockLowest.getRelative(BlockFace.SOUTH_EAST)) || SGBlockUtil.isLily(blockLowest.getRelative(BlockFace.NORTH_EAST));
 	}
+	
+	
+	/**
+	 * Checks to see if the player is on a vine, or a ladder.
+	 * @param player
+	 * @return boolean
+	 */
+	public boolean isOnSnow() {
+		//Checks the various blockfaces and retrives the relative block to check.
+		final Block block = player.getLocation().getBlock();
+		//Checks on jump
+		final Block blockLower = player.getLocation().subtract(0, 0.1, 0).add(0.5, 0, 0).getBlock();
+		final Block blockLowest = player.getLocation().subtract(0, 0.2, 0).add(0.5, 0, 0).getBlock();
+		//Returns if any
+		return (SGBlockUtil.isSnow(block) || SGBlockUtil.isSnow(blockLower) || SGBlockUtil.isSnow(blockLowest) || SGBlockUtil.isSnow(block.getRelative(BlockFace.NORTH)) || SGBlockUtil.isSnow(block.getRelative(BlockFace.SOUTH)) || SGBlockUtil.isSnow(block.getRelative(BlockFace.EAST)) || SGBlockUtil.isSnow(block.getRelative(BlockFace.WEST)) || SGBlockUtil.isSnow(block.getRelative(BlockFace.SOUTH_WEST)) || SGBlockUtil.isSnow(block.getRelative(BlockFace.NORTH_WEST))||  SGBlockUtil.isSnow(block.getRelative(BlockFace.SOUTH_EAST)) || SGBlockUtil.isSnow(block.getRelative(BlockFace.NORTH_EAST)))
+				|| SGBlockUtil.isSnow(blockLower.getRelative(BlockFace.NORTH)) || SGBlockUtil.isSnow(blockLower.getRelative(BlockFace.SOUTH)) || SGBlockUtil.isSnow(blockLower.getRelative(BlockFace.EAST)) || SGBlockUtil.isSnow(blockLower.getRelative(BlockFace.WEST)) || SGBlockUtil.isSnow(blockLower.getRelative(BlockFace.SOUTH_WEST)) || SGBlockUtil.isSnow(blockLower.getRelative(BlockFace.NORTH_WEST))||  SGBlockUtil.isSnow(blockLower.getRelative(BlockFace.SOUTH_EAST)) || SGBlockUtil.isSnow(blockLower.getRelative(BlockFace.NORTH_EAST))
+				|| SGBlockUtil.isSnow(blockLowest.getRelative(BlockFace.NORTH)) || SGBlockUtil.isSnow(blockLowest.getRelative(BlockFace.SOUTH)) || SGBlockUtil.isSnow(blockLowest.getRelative(BlockFace.EAST)) || SGBlockUtil.isSnow(blockLowest.getRelative(BlockFace.WEST)) || SGBlockUtil.isSnow(blockLowest.getRelative(BlockFace.SOUTH_WEST)) || SGBlockUtil.isSnow(blockLowest.getRelative(BlockFace.NORTH_WEST))||  SGBlockUtil.isSnow(blockLowest.getRelative(BlockFace.SOUTH_EAST)) || SGBlockUtil.isSnow(blockLowest.getRelative(BlockFace.NORTH_EAST));
+	}
 
 	/** Returns the back pedal diff **/
 	public double getBackPedalDiff() {

@@ -30,6 +30,7 @@ checks:
     movement_speed:
         enabled: true
         maxvl: 500
+        buffer: 1.5
         kick: true
         kickmsg: "&1[SG] &bYou moved too quickly!"
     movement_packets:

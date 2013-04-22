@@ -87,6 +87,11 @@ public class SGBlockUtil implements ICore
 		return block.getType() == Material.SNOW;
 	}
 
+	/** Returns true if the specified Block is ice. */
+	public static boolean isIce(final Block block) {
+		return block.getType() == Material.ICE;
+	}
+	
 	/** Returns true if the block is a ladder **/
 	public static boolean isLadder(Block block) {
 		return block.getType() == Material.LADDER;

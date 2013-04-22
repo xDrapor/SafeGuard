@@ -31,6 +31,16 @@ public class SGCheckSpeed extends SGCheck {
 		this.to = playerMoveEvent.getTo();
 		this.from = playerMoveEvent.getFrom();
 		
+		
+		//Fix moving from ice onto another surface.
+		if(player.isOnIce() && to.getBlock().isEmpty()) {
+			player.setLastTimeOnIce(System.currentTimeMillis());
+		}
+		//Stops with cooldown
+		if(System.currentTimeMillis() - player.getLastTimeOnIce() < (safeGuard.sgConfig.getConfig().getDouble("checks.movement_speed.buffer") * 1000) && SGMovementUtil.getDistanceY(to, from, false) < 1 && SGMovementUtil.getDistanceHorizontal(to, from) < 1) {
+			return;
+		}
+		
 		if(SGMovementUtil.getDistanceY(to, from, false) >= 1.0) {
 			
 			playerMoveEvent.setTo(SGBlockUtil.findClosestGroundToLocation(sgPlayer));

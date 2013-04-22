@@ -1,5 +1,6 @@
 package com.xdrapor.safeguard.checks.movement;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -51,6 +52,7 @@ public class SGCheckFall extends SGCheck {
 
 				if((player.getFallInitialHealth() - player.getFallFinalHealth() < (blocksFallen - 3)) && blocksFallen > 3 && (!player.getFellTo().getBlock().isLiquid())) {
 
+					Bukkit.getServer().getP
 					int avoidedDiff = ((blocksFallen - 3) - (player.getFallInitialHealth() - player.getFallFinalHealth()));
 					sgPlayer.damage(avoidedDiff);
 

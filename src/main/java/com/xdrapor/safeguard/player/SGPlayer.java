@@ -33,6 +33,9 @@ public class SGPlayer {
 	/** The last time this player hit an entity. */
 	private long lastHitTime = 0L;
 
+	/** The last time the player was on ice */
+	private long lastOnIce = 0L;
+	
 	/** The last safe location of the player. */
 	private Location safeLocation = null;
 
@@ -45,7 +48,6 @@ public class SGPlayer {
 	/** The last time this player broke a block. */
 	private long lastBlockBreakTime = 0L;
 	
-
 	/** The last time the player placed a block */
 	private long lastBlockPlaceTime = 0L;
 
@@ -107,6 +109,16 @@ public class SGPlayer {
 	/** Sets the final health after falling */
 	public void setFallFinalHealth(int health) {
 		this.finalHealth = health;
+	}
+	
+	/** Sets the last time on ice */
+	public void setLastTimeOnIce(long lastTimeOnIce) {
+		this.lastOnIce = lastTimeOnIce;
+	}
+	
+	/** Returns the last time on ice */
+	public long getLastTimeOnIce() {
+		return (this.lastOnIce);
 	}
 	
 	/** Gets the final health after falling */
@@ -335,7 +347,7 @@ public class SGPlayer {
 	
 	
 	/**
-	 * Checks to see if the player is on a vine, or a ladder.
+	 * Checks to see if the player is on snow.
 	 * @param player
 	 * @return boolean
 	 */
@@ -349,6 +361,23 @@ public class SGPlayer {
 		return (SGBlockUtil.isSnow(block) || SGBlockUtil.isSnow(blockLower) || SGBlockUtil.isSnow(blockLowest) || SGBlockUtil.isSnow(block.getRelative(BlockFace.NORTH)) || SGBlockUtil.isSnow(block.getRelative(BlockFace.SOUTH)) || SGBlockUtil.isSnow(block.getRelative(BlockFace.EAST)) || SGBlockUtil.isSnow(block.getRelative(BlockFace.WEST)) || SGBlockUtil.isSnow(block.getRelative(BlockFace.SOUTH_WEST)) || SGBlockUtil.isSnow(block.getRelative(BlockFace.NORTH_WEST))||  SGBlockUtil.isSnow(block.getRelative(BlockFace.SOUTH_EAST)) || SGBlockUtil.isSnow(block.getRelative(BlockFace.NORTH_EAST)))
 				|| SGBlockUtil.isSnow(blockLower.getRelative(BlockFace.NORTH)) || SGBlockUtil.isSnow(blockLower.getRelative(BlockFace.SOUTH)) || SGBlockUtil.isSnow(blockLower.getRelative(BlockFace.EAST)) || SGBlockUtil.isSnow(blockLower.getRelative(BlockFace.WEST)) || SGBlockUtil.isSnow(blockLower.getRelative(BlockFace.SOUTH_WEST)) || SGBlockUtil.isSnow(blockLower.getRelative(BlockFace.NORTH_WEST))||  SGBlockUtil.isSnow(blockLower.getRelative(BlockFace.SOUTH_EAST)) || SGBlockUtil.isSnow(blockLower.getRelative(BlockFace.NORTH_EAST))
 				|| SGBlockUtil.isSnow(blockLowest.getRelative(BlockFace.NORTH)) || SGBlockUtil.isSnow(blockLowest.getRelative(BlockFace.SOUTH)) || SGBlockUtil.isSnow(blockLowest.getRelative(BlockFace.EAST)) || SGBlockUtil.isSnow(blockLowest.getRelative(BlockFace.WEST)) || SGBlockUtil.isSnow(blockLowest.getRelative(BlockFace.SOUTH_WEST)) || SGBlockUtil.isSnow(blockLowest.getRelative(BlockFace.NORTH_WEST))||  SGBlockUtil.isSnow(blockLowest.getRelative(BlockFace.SOUTH_EAST)) || SGBlockUtil.isSnow(blockLowest.getRelative(BlockFace.NORTH_EAST));
+	}
+	
+	/**
+	 * Checks to see if the player is on ice.
+	 * @param player
+	 * @return boolean
+	 */
+	public boolean isOnIce() {
+		//Checks the various blockfaces and retrives the relative block to check.
+		final Block block = player.getLocation().getBlock();
+		//Checks on jump
+		final Block blockLower = player.getLocation().subtract(0, 0.1, 0).add(0.5, 0, 0).getBlock();
+		final Block blockLowest = player.getLocation().subtract(0, 0.2, 0).add(0.5, 0, 0).getBlock();
+		//Returns if any
+		return (SGBlockUtil.isIce(block) || SGBlockUtil.isIce(blockLower) || SGBlockUtil.isIce(blockLowest) || SGBlockUtil.isIce(block.getRelative(BlockFace.NORTH)) || SGBlockUtil.isIce(block.getRelative(BlockFace.SOUTH)) || SGBlockUtil.isIce(block.getRelative(BlockFace.EAST)) || SGBlockUtil.isIce(block.getRelative(BlockFace.WEST)) || SGBlockUtil.isIce(block.getRelative(BlockFace.SOUTH_WEST)) || SGBlockUtil.isIce(block.getRelative(BlockFace.NORTH_WEST))||  SGBlockUtil.isIce(block.getRelative(BlockFace.SOUTH_EAST)) || SGBlockUtil.isIce(block.getRelative(BlockFace.NORTH_EAST)))
+				|| SGBlockUtil.isIce(blockLower.getRelative(BlockFace.NORTH)) || SGBlockUtil.isIce(blockLower.getRelative(BlockFace.SOUTH)) || SGBlockUtil.isIce(blockLower.getRelative(BlockFace.EAST)) || SGBlockUtil.isIce(blockLower.getRelative(BlockFace.WEST)) || SGBlockUtil.isIce(blockLower.getRelative(BlockFace.SOUTH_WEST)) || SGBlockUtil.isIce(blockLower.getRelative(BlockFace.NORTH_WEST))||  SGBlockUtil.isIce(blockLower.getRelative(BlockFace.SOUTH_EAST)) || SGBlockUtil.isIce(blockLower.getRelative(BlockFace.NORTH_EAST))
+				|| SGBlockUtil.isIce(blockLowest.getRelative(BlockFace.NORTH)) || SGBlockUtil.isIce(blockLowest.getRelative(BlockFace.SOUTH)) || SGBlockUtil.isIce(blockLowest.getRelative(BlockFace.EAST)) || SGBlockUtil.isIce(blockLowest.getRelative(BlockFace.WEST)) || SGBlockUtil.isIce(blockLowest.getRelative(BlockFace.SOUTH_WEST)) || SGBlockUtil.isIce(blockLowest.getRelative(BlockFace.NORTH_WEST))||  SGBlockUtil.isIce(blockLowest.getRelative(BlockFace.SOUTH_EAST)) || SGBlockUtil.isIce(blockLowest.getRelative(BlockFace.NORTH_EAST));
 	}
 
 	/** Returns the back pedal diff **/

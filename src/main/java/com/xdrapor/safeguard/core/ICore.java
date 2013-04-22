@@ -23,7 +23,7 @@ public interface ICore
 	public final String sgPrefix = "SafeGuard";
 	
 	/** The current build of SafeGuard. */
-	public final String sgVersion = safeGuard.getVersion();
+	public final String sgVersion = safeGuard.getDescription().getVersion();
 	
 	/** The string separator used by SafeGuard. */
 	public final char sgStringSeparator = ' ';

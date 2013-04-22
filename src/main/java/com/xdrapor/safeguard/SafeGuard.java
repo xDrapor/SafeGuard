@@ -1,9 +1,5 @@
 package com.xdrapor.safeguard;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
-
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.xdrapor.safeguard.core.ICore;
@@ -67,26 +63,5 @@ public class SafeGuard extends JavaPlugin implements ICore
 		sgEventManager.cleanUpListeners();
 		sgLogManager.fileHandler.close();
 		sgLogManager.getConsoleLogger().logInfo(sgPrefix + sgStringSeparator + "has been disabled!");
-	}
-	
-	/** Returns the version of SafeGuard. */
-	public String getVersion() {	
-
-		InputStream stream = getClass().getResourceAsStream("/version.prop");
-		
-		if (stream == null) return "UNKNOWN";
-		
-		Properties props = new Properties();
-		
-		try {
-			
-			props.load(stream);
-			stream.close();
-			
-			return (String)props.get("version");
-			
-		} catch (IOException e) {
-			return "UNKNOWN";
-		}
 	}
 }

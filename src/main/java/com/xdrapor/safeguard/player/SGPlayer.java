@@ -52,8 +52,11 @@ public class SGPlayer {
 	private long lastBlockPlaceTime = 0L;
 
 	/** The amount of packets that a player may send at a single time. */
-	private long lastPacketTime;
+	private long lastPacketTime = 0L;
 
+	/** The last time the flight state was changed **/
+	private long lastFlightStateTime = 0L;
+	
 	/** A buffer to allow for lag */
 	private int packetBuffer = 50;
 
@@ -114,6 +117,15 @@ public class SGPlayer {
 	/** Sets the last time on ice */
 	public void setLastTimeOnIce(long lastTimeOnIce) {
 		this.lastOnIce = lastTimeOnIce;
+	}
+	
+	/** Sets the last time the flight state was changed */
+	public void setFlightStateTime(long lastFlightStateChangedTime) {
+		this.lastFlightStateTime = lastFlightStateChangedTime;
+	}
+
+	public long getFlightStateTime() {
+		return (this.lastFlightStateTime);
 	}
 	
 	/** Returns the last time on ice */

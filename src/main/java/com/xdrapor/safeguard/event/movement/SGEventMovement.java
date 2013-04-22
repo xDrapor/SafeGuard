@@ -1,12 +1,15 @@
 package com.xdrapor.safeguard.event.movement;
 
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerGameModeChangeEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
+import org.bukkit.event.player.PlayerToggleFlightEvent;
 
 import com.xdrapor.safeguard.checks.SGCheck;
 import com.xdrapor.safeguard.checks.movement.SGCheckFall;
@@ -21,11 +24,11 @@ import com.xdrapor.safeguard.utilities.SGMovementUtil;
 public class SGEventMovement extends SGEventListener {	
 	
 	@EventHandler(priority = EventPriority.LOWEST)
-	public void checkPlayerRespawn(PlayerRespawnEvent event) {
+	public void checkPlayerDeath(PlayerDeathEvent event) {
 		// This event does not produce a check, it only sets the data for the SGPlayer instance.
-		if (safeGuard.sgPlayerManager.isTracking(event.getPlayer())) {
-			SGMovementUtil.setSafeLocationSpawn(event.getPlayer());
-			safeGuard.sgPlayerManager.getPlayer(event.getPlayer().getName()).resetFallingValues();
+		if (safeGuard.sgPlayerManager.isTracking(event.getEntity())) {
+			SGMovementUtil.setSafeLocationSpawn(event.getEntity());
+			safeGuard.sgPlayerManager.getPlayer(event.getEntity().getName()).resetFallingValues();
 		}
 	}
 	
@@ -44,6 +47,23 @@ public class SGEventMovement extends SGEventListener {
 		}
 	}
 
+	@EventHandler(priority = EventPriority.LOWEST)
+	public void checkToggleFlight(PlayerToggleFlightEvent event) {
+		if(!event.isFlying()) {
+			if (safeGuard.sgPlayerManager.isTracking(event.getPlayer())) {
+				safeGuard.sgPlayerManager.getPlayer(event.getPlayer().getName()).setFlightStateTime(System.currentTimeMillis());
+			}
+		}
+	}
+	
+	@EventHandler(priority = EventPriority.LOWEST)
+	public void checkGamemodeChange(PlayerGameModeChangeEvent event) {
+		if(event.getPlayer().getGameMode() == GameMode.CREATIVE) {
+			if (safeGuard.sgPlayerManager.isTracking(event.getPlayer())) {
+				safeGuard.sgPlayerManager.getPlayer(event.getPlayer().getName()).setFlightStateTime(System.currentTimeMillis());
+			}
+		}
+	}
 	
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void checkPlayerTeleport(PlayerTeleportEvent event) {
@@ -64,9 +84,9 @@ public class SGEventMovement extends SGEventListener {
 
 	@Override
 	public void loadChecks() {
+		sgChecks.add(new SGCheckFall());
 		sgChecks.add(new SGCheckFlight());
 		sgChecks.add(new SGCheckSpeed());
-		sgChecks.add(new SGCheckFall());
 		sgChecks.add(new SGCheckInvalidMove());
 		sgChecks.add(new SGCheckPackets());
 	}

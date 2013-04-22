@@ -31,13 +31,15 @@ public class SGCheckFall extends SGCheck {
 
 
 		if((isCreativeFlight(sgPlayer) && sgPlayer.isFlying()) || isCreative(sgPlayer))return;
-
+		
 		if(SGMovementUtil.getFalling(to, from)) {
 
 			if(!player.isFalling()) {
-
+				
 				player.setFalling(true);
+				
 				player.setFellFrom(from);
+				
 				player.setFallInitialHealth(sgPlayer.getHealth());
 			}
 

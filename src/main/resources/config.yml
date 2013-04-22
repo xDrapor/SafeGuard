@@ -17,6 +17,7 @@ checks:
         maxvl: 500
         kick: true
         kickmsg: "&1[SG] &bFlying is disabled on this server!"
+        flystate: 30
     movement_invalidmove:
         enabled: true
         maxvl: 500
@@ -33,6 +34,7 @@ checks:
         buffer: 1.5
         kick: true
         kickmsg: "&1[SG] &bYou moved too quickly!"
+        flystate: 30
     movement_packets:
         enabled: true
         maxvl: 500

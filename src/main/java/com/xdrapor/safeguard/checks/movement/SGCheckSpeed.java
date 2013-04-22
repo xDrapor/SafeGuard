@@ -39,6 +39,8 @@ public class SGCheckSpeed extends SGCheck {
 		//Stops with cooldown
 		if(System.currentTimeMillis() - player.getLastTimeOnIce() < (safeGuard.sgConfig.getConfig().getDouble("checks.movement_speed.buffer") * 1000) && SGMovementUtil.getDistanceY(to, from, false) < 1 && SGMovementUtil.getDistanceHorizontal(to, from) < 1) {
 			return;
+		} else if(System.currentTimeMillis() - player.getFlightStateTime() < (safeGuard.getConfig().getDouble("checks.movement_speed.flystate") * 1000) && player.isFalling() && SGMovementUtil.getDistanceHorizontal(to, player.getFellFrom()) < 8) {
+			return;
 		}
 		
 		if(SGMovementUtil.getDistanceY(to, from, false) >= 1.0) {

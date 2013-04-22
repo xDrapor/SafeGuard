@@ -41,7 +41,8 @@ public class SGCheckFlight extends SGCheck
 		if(onGround(sgPlayer) || inLiquid(sgPlayer) || player.isOnLily()) {
 			SGMovementUtil.setSafeLocation(sgPlayer);
 			safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).setNextExpectedY(-1.0D);
-			
+			return;
+		} else if(System.currentTimeMillis() - player.getFlightStateTime() < (safeGuard.getConfig().getDouble("checks.movement_flight.flystate") * 1000) && player.isFalling() && SGMovementUtil.getDistanceHorizontal(to, player.getFellFrom()) < 8) {
 			return;
 		}
 

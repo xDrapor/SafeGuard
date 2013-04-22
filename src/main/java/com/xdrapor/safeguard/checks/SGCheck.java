@@ -43,6 +43,7 @@ public abstract class SGCheck implements ICore {
 				player.sendMessage(getChatMessage(sgPlayer, tag));
 			}
 		}
+		
 		if (safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()) == null || safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).getVL(tag) <= 0) { return; }
 
 		if (safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).getVL(tag) <= 10) {

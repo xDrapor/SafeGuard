@@ -45,10 +45,8 @@ public class SafeGuard extends JavaPlugin implements ICore
 		
 		//Load all online players.
 		sgPlayerManager.loadOnlinePlayers();
-		
 		//Gets the SafeGuard command.
 		getCommand("safeguard").setExecutor(sgCommandManager = new SGCommandManager());
-		
 		// Log completion to console.
 		sgLogManager.getConsoleLogger().logInfo(sgPrefix + sgStringSeparator + "has been enabled.");
 	}

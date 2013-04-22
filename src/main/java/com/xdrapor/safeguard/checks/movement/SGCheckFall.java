@@ -52,7 +52,6 @@ public class SGCheckFall extends SGCheck {
 
 				if((player.getFallInitialHealth() - player.getFallFinalHealth() < (blocksFallen - 3)) && blocksFallen > 3 && (!player.getFellTo().getBlock().isLiquid())) {
 
-					Bukkit.getServer().getP
 					int avoidedDiff = ((blocksFallen - 3) - (player.getFallInitialHealth() - player.getFallFinalHealth()));
 					sgPlayer.damage(avoidedDiff);
 

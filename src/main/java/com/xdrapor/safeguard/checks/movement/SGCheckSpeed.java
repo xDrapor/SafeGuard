@@ -35,11 +35,16 @@ public class SGCheckSpeed extends SGCheck {
 		//Fix moving from ice onto another surface.
 		if(player.isOnIce() && to.getBlock().isEmpty()) {
 			player.setLastTimeOnIce(System.currentTimeMillis());
+		} else if(!onGround(sgPlayer)) {
+			player.setLastAirTime(System.currentTimeMillis());
 		}
+		
 		//Stops with cooldown
 		if(System.currentTimeMillis() - player.getLastTimeOnIce() < (safeGuard.sgConfig.getConfig().getDouble("checks.movement_speed.buffer") * 1000) && SGMovementUtil.getDistanceY(to, from, false) < 1 && SGMovementUtil.getDistanceHorizontal(to, from) < 1) {
 			return;
 		} else if(System.currentTimeMillis() - player.getFlightStateTime() < (safeGuard.getConfig().getDouble("checks.movement_speed.flystate") * 1000) && player.isFalling() && SGMovementUtil.getDistanceHorizontal(to, player.getFellFrom()) < 8) {
+			return;
+		} else if(((System.currentTimeMillis() - player.getLastAirTime()) < 600L) && onGround(sgPlayer)) {
 			return;
 		}
 		
@@ -50,7 +55,7 @@ public class SGCheckSpeed extends SGCheck {
 			safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).addVL(SGCheckTag.MOVEMENT_SPEED, (SGMovementUtil.getDistanceVertical(this.to, this.from) * 10));
 			
 			publishCheck(getClass(), sgPlayer, SGCheckTag.MOVEMENT_SPEED);
-		
+				
 		}
 		
 		if(((getSpeedAmplifier(((CraftPlayer)sgPlayer).getHandle()) * getPlayerSpeed(sgPlayer)) * 1.3) < SGMovementUtil.getDistanceHorizontal(this.to, this.from) && !player.isOnLily()) {
@@ -61,6 +66,7 @@ public class SGCheckSpeed extends SGCheck {
 				publishCheck(getClass(), sgPlayer, SGCheckTag.MOVEMENT_SPEED);
 				
 				playerMoveEvent.setTo(this.from);
+
 			}
 
 			return;

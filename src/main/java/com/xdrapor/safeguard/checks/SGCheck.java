@@ -153,7 +153,7 @@ public abstract class SGCheck implements ICore {
 
 	/** Returns whether the player is on the ground. */
 	public static boolean onGround(Player sgPlayer) {
-		return ((sgPlayer.getLocation().subtract(0, 0.20D, 0).getBlock().isEmpty() && !isAboveStairs(sgPlayer) && !isOnFence(sgPlayer) && !isOnSnow(sgPlayer)) ? false : true);
+		return ((sgPlayer.getLocation().subtract(0, 0.20D, 0).getBlock().isEmpty() && !isAboveStairs(sgPlayer) && !isOnFence(sgPlayer)) ? false : true);
 	}
 
 	/** Returns whether the player is above stairs. */

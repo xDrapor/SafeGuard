@@ -1,8 +1,6 @@
 package com.xdrapor.safeguard.player;
 
-import java.text.DecimalFormat;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 import org.bukkit.Bukkit;
@@ -52,6 +50,9 @@ public class SGPlayer {
 	/** The last time the player placed a block */
 	private long lastBlockPlaceTime = 0L;
 
+	/** Stores the last time the player was airborne */
+	private long lastAirTime = 0L;
+	
 	/** The amount of packets that a player may send at a single time. */
 	private long lastPacketTime = 0L;
 
@@ -220,6 +221,14 @@ public class SGPlayer {
 		return this.lastBlockPlaceTime;
 	}
 
+	public long getLastAirTime() {
+		return (this.lastAirTime);
+	}
+	
+	public void setLastAirTime(long time) {
+		this.lastAirTime = time;
+	}
+	
 	/** Sets the time in milliseconds the player last placed a block*/
 	public void setLastPlaceTime(long lastBlockPlaceTime) {
 		this.lastBlockPlaceTime = lastBlockPlaceTime;
@@ -266,9 +275,22 @@ public class SGPlayer {
 		violations.put(tag, oldValue + value);
 	}
 
+	/**
+	 * Checks to see if the player is above stairs.
+	 * @param block
+	 * @return
+	 */
+	public boolean isAboveStairs(){
+		//Checks the various blockfaces and retrives the relative block to check.
+		final Block block = player.getLocation().getBlock();
+		final Block altBlock = player.getLocation().add(0,0.5,0).getBlock();
+		return (SGBlockUtil.isStair(block.getRelative(BlockFace.NORTH)) || SGBlockUtil.isStair(block.getRelative(BlockFace.SOUTH)) || SGBlockUtil.isStair(block.getRelative(BlockFace.EAST)) || SGBlockUtil.isStair(block.getRelative(BlockFace.WEST)) || SGBlockUtil.isStair(block.getRelative(BlockFace.SOUTH_WEST)) || SGBlockUtil.isStair(block.getRelative(BlockFace.NORTH_WEST))||  SGBlockUtil.isStair(block.getRelative(BlockFace.SOUTH_EAST)) || SGBlockUtil.isStair(block.getRelative(BlockFace.NORTH_EAST)) || 
+				SGBlockUtil.isStair(altBlock.getRelative(BlockFace.NORTH)) || SGBlockUtil.isStair(altBlock.getRelative(BlockFace.SOUTH)) || SGBlockUtil.isStair(altBlock.getRelative(BlockFace.EAST)) || SGBlockUtil.isStair(altBlock.getRelative(BlockFace.WEST)) || SGBlockUtil.isStair(altBlock.getRelative(BlockFace.SOUTH_WEST)) || SGBlockUtil.isStair(altBlock.getRelative(BlockFace.NORTH_WEST))||  SGBlockUtil.isStair(altBlock.getRelative(BlockFace.SOUTH_EAST)) || SGBlockUtil.isStair(altBlock.getRelative(BlockFace.NORTH_EAST)));
+	}
+	
 	/** Returns the violation level of the player for the specified tag truncated to a max of two decimal places. */
 	public double getVLTruncated(SGCheckTag tag) {
-		return Math.floor(this.violations.get(tag).doubleValue() / 10) * 10;
+		return Math.round(this.violations.get(tag).doubleValue() * Math.pow(10, (double) 2)) / Math.pow(10, (double)2);
 	}
 
 

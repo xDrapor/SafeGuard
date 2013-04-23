@@ -268,10 +268,7 @@ public class SGPlayer {
 
 	/** Returns the violation level of the player for the specified tag truncated to a max of two decimal places. */
 	public double getVLTruncated(SGCheckTag tag) {
-		//TODO: Handle french space.
-		DecimalFormat df = (DecimalFormat) DecimalFormat.getInstance(Locale.getDefault());
-		df.applyLocalizedPattern("#.##");
-		return (Double.parseDouble(df.format(this.violations.get(tag).doubleValue())));
+		return Math.floor(this.violations.get(tag).doubleValue() / 10) * 10;
 	}
 
 

@@ -98,8 +98,7 @@ public class SGBlockUtil implements ICore {
 		double percentToGet = 100D;
 		if(isQualityTool(player.getPlayer().getItemInHand(), block.getType()) || possibleBreakWithHand(block)) {
 			if(player.getPlayer().getItemInHand().containsEnchantment(Enchantment.DIG_SPEED)) {
-				percentToGet = 100 - (50 * player.getPlayer().getItemInHand().getEnchantmentLevel(Enchantment.DIG_SPEED));
-				if(percentToGet <= 0)return 0D;
+				percentToGet = 100D - (getPercentAtEffLevel(player.getPlayer().getItemInHand().getEnchantmentLevel(Enchantment.DIG_SPEED)));
 			}
 		}
 		return Math.round((1000f * 5f * currentBlockHardness) / (currentToolMultiplier * 3.33f) * (percentToGet / 100));
@@ -205,6 +204,26 @@ public class SGBlockUtil implements ICore {
 			return true;
 		}
 		return false;
+	}
+	
+	/** Gets the efficiency level modifier */
+	private static int getPercentAtEffLevel(int enchantLevel)
+	{
+		switch(enchantLevel)
+		{
+		case 1:
+			return 30;
+		case 2:
+			return 39;
+		case 3:
+			return 51;
+		case 4:
+			return 66;
+		case 5:
+			return 85;
+		default:
+			return 100;
+		}
 	}
 	
 	/** Returns true if the specified Block is a stair. */

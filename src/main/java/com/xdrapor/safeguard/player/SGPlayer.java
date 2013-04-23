@@ -2,6 +2,7 @@ package com.xdrapor.safeguard.player;
 
 import java.text.DecimalFormat;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import org.bukkit.Bukkit;
@@ -267,7 +268,10 @@ public class SGPlayer {
 
 	/** Returns the violation level of the player for the specified tag truncated to a max of two decimal places. */
 	public double getVLTruncated(SGCheckTag tag) {
-		return (Double.parseDouble(new DecimalFormat("#.##").format(this.violations.get(tag).doubleValue())));
+		//TODO: Handle french space.
+		DecimalFormat df = (DecimalFormat) DecimalFormat.getInstance(Locale.getDefault());
+		df.applyLocalizedPattern("#.##");
+		return (Double.parseDouble(df.format(this.violations.get(tag).doubleValue())));
 	}
 
 

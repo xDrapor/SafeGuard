@@ -65,6 +65,9 @@ checks:
         maxvl: 500
         kick: true
         kickmsg: "&1[SG] &bTried breaking blocks too quickly!"
+        exceptions: 
+        - "269:4:[3,2,24]"
+        - "269:5:[3,2,24]"
     blockbreak_frequency:
         enabled: true
         cooldown: 5.0
@@ -74,6 +77,16 @@ checks:
         kickmsg: "&1[SG] &bTried breaking blocks too quickly!"
         pendingmsg: "&1[SG] &bPlease wait %c seconds before breaking another block!"
         cooldownmsg: "&1[SG] &bYou can now break blocks again!"
+        exceptions: 
+        - "269:5:[3,2,24,13,31,44,155]"
+        - "273:4:[3,2,24,13,31,44,155]"
+        - "273:5:[3,2,24,13,31,44,155]"
+        - "277:3:[3,2,24,13,31,44,155]"
+        - "277:4:[3,2,24,13,31,44,155]"
+        - "277:5:[3,2,24,13,31,44,155]"
+        - "284:3:[3,2,24,13,31,44,155]"
+        - "284:4:[3,2,24,13,31,44,155]"
+        - "284:5:[3,2,24,13,31,44,155]"
     blockplace_reach:
         enabled: true
         buffer: 0.5

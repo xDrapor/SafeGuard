@@ -1,5 +1,6 @@
 package com.xdrapor.safeguard.checks.blockbreak;
 
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -25,6 +26,34 @@ public class SGCheckSpeed extends SGCheck {
 		
 		BlockBreakEvent blockBreakEvent = (BlockBreakEvent)event;
 		Player sgPlayer = player.getPlayer();
+		
+		for (String s : safeGuard.sgConfig.getConfig()
+				.getStringList("checks.blockbreak_speed.exceptions")) {
+			String[] values = s.split(":");
+			if (values.length >= 3) {
+				try {
+					int itemId = Integer.parseInt(values[0]);
+					int enchantLevel = Integer.parseInt(values[1]);
+					String[] blockIds = values[2].replace("[", "").replace("]", "").split(",");
+
+					for(String i : blockIds) {
+						int blockId = Integer.parseInt(i);
+						if (blockBreakEvent.getBlock().getTypeId() == blockId
+								&& sgPlayer.getItemInHand().getTypeId() == itemId) {
+							if (sgPlayer.getItemInHand().containsEnchantment(
+									Enchantment.DIG_SPEED)) {
+								if (sgPlayer.getItemInHand().getEnchantmentLevel(
+										Enchantment.DIG_SPEED) == enchantLevel) {
+									return;
+								}
+							}
+						}
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
 		
 		if(SGBlockUtil.getDurationVSTool(player, blockBreakEvent.getPlayer().getItemInHand(), blockBreakEvent.getBlock()) - SGBlockUtil.getPlayerBreakDuration(sgPlayer) > 100) {
 			safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).addVL(SGCheckTag.BLOCK_BREAKSPEED, SGBlockUtil.getDurationVSTool(player, blockBreakEvent.getPlayer().getItemInHand(), blockBreakEvent.getBlock()) - SGBlockUtil.getPlayerBreakDuration(sgPlayer));

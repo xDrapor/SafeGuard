@@ -1,6 +1,7 @@
 
 package com.xdrapor.safeguard.checks.blockbreak;
 
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -24,6 +25,39 @@ public class SGCheckFrequency extends SGCheck {
 
 		BlockBreakEvent blockBreakEvent = (BlockBreakEvent)event;
 		Player sgPlayer = player.getPlayer();
+
+		if(System.currentTimeMillis() - player.getLastBlockBreakTime() > (sgConfig.getConfig().getDouble("checks.blockbreak_frequency.cooldown") * 1000)) {
+			player.resetBlocksFreq();
+			sgPlayer.sendMessage(sgConfig.getConfig().getString("checks.break_frequency.cooldownmsg").replaceAll("(&([a-f0-9]))", "\u00A7$2"));
+		}
+
+		for (String s : safeGuard.sgConfig.getConfig()
+				.getStringList("checks.blockbreak_frequency.exceptions")) {
+			String[] values = s.split(":");
+			if (values.length >= 3) {
+				try {
+					int itemId = Integer.parseInt(values[0]);
+					int enchantLevel = Integer.parseInt(values[1]);
+					String[] blockIds = values[2].replace("[", "").replace("]", "").split(",");
+
+					for(String i : blockIds) {
+						int blockId = Integer.parseInt(i);
+						if (blockBreakEvent.getBlock().getTypeId() == blockId
+								&& sgPlayer.getItemInHand().getTypeId() == itemId) {
+							if (sgPlayer.getItemInHand().containsEnchantment(
+									Enchantment.DIG_SPEED)) {
+								if (sgPlayer.getItemInHand().getEnchantmentLevel(
+										Enchantment.DIG_SPEED) == enchantLevel) {
+									return;
+								}
+							}
+						}
+					}
+				} catch (Exception e) {
+				}
+			}
+		}
+
 
 		if(System.currentTimeMillis() - player.getLastBlockBrokenFreq() > 1000) {
 			player.setLastBlockBrokenFreq(System.currentTimeMillis());
@@ -50,11 +84,6 @@ public class SGCheckFrequency extends SGCheck {
 
 				publishCheck(getClass(), sgPlayer, SGCheckTag.BLOCK_BREAKFREQUENCY);
 			}
-		}
-
-		if(System.currentTimeMillis() - player.getLastBlockBreakTime() > (sgConfig.getConfig().getDouble("checks.blockbreak_frequency.cooldown") * 1000)) {
-			player.resetBlocksFreq();
-			sgPlayer.sendMessage(sgConfig.getConfig().getString("checks.break_frequency.cooldownmsg").replaceAll("(&([a-f0-9]))", "\u00A7$2"));
 		}
 	}
 }

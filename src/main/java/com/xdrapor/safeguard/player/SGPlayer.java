@@ -283,9 +283,23 @@ public class SGPlayer {
 	public boolean isAboveStairs(){
 		//Checks the various blockfaces and retrives the relative block to check.
 		final Block block = player.getLocation().getBlock();
-		final Block altBlock = player.getLocation().add(0,0.5,0).getBlock();
-		return (SGBlockUtil.isStair(block.getRelative(BlockFace.NORTH)) || SGBlockUtil.isStair(block.getRelative(BlockFace.SOUTH)) || SGBlockUtil.isStair(block.getRelative(BlockFace.EAST)) || SGBlockUtil.isStair(block.getRelative(BlockFace.WEST)) || SGBlockUtil.isStair(block.getRelative(BlockFace.SOUTH_WEST)) || SGBlockUtil.isStair(block.getRelative(BlockFace.NORTH_WEST))||  SGBlockUtil.isStair(block.getRelative(BlockFace.SOUTH_EAST)) || SGBlockUtil.isStair(block.getRelative(BlockFace.NORTH_EAST)) || 
-				SGBlockUtil.isStair(altBlock.getRelative(BlockFace.NORTH)) || SGBlockUtil.isStair(altBlock.getRelative(BlockFace.SOUTH)) || SGBlockUtil.isStair(altBlock.getRelative(BlockFace.EAST)) || SGBlockUtil.isStair(altBlock.getRelative(BlockFace.WEST)) || SGBlockUtil.isStair(altBlock.getRelative(BlockFace.SOUTH_WEST)) || SGBlockUtil.isStair(altBlock.getRelative(BlockFace.NORTH_WEST))||  SGBlockUtil.isStair(altBlock.getRelative(BlockFace.SOUTH_EAST)) || SGBlockUtil.isStair(altBlock.getRelative(BlockFace.NORTH_EAST)));
+		final Block altBlock = player.getLocation().add(0, 0.5, 0).getBlock();
+		return (SGBlockUtil.isStair(block.getRelative(BlockFace.NORTH))
+				|| SGBlockUtil.isStair(block.getRelative(BlockFace.SOUTH))
+				|| SGBlockUtil.isStair(block.getRelative(BlockFace.EAST))
+				|| SGBlockUtil.isStair(block.getRelative(BlockFace.WEST))
+				|| SGBlockUtil.isStair(block.getRelative(BlockFace.SOUTH_WEST))
+				|| SGBlockUtil.isStair(block.getRelative(BlockFace.NORTH_WEST))
+				|| SGBlockUtil.isStair(block.getRelative(BlockFace.SOUTH_EAST))
+				|| SGBlockUtil.isStair(block.getRelative(BlockFace.NORTH_EAST))
+				|| SGBlockUtil.isStair(altBlock.getRelative(BlockFace.NORTH))
+				|| SGBlockUtil.isStair(altBlock.getRelative(BlockFace.SOUTH))
+				|| SGBlockUtil.isStair(altBlock.getRelative(BlockFace.EAST))
+				|| SGBlockUtil.isStair(altBlock.getRelative(BlockFace.WEST))
+				|| SGBlockUtil.isStair(altBlock.getRelative(BlockFace.SOUTH_WEST))
+				|| SGBlockUtil.isStair(altBlock.getRelative(BlockFace.NORTH_WEST))
+				|| SGBlockUtil.isStair(altBlock.getRelative(BlockFace.SOUTH_EAST))
+				|| SGBlockUtil.isStair(altBlock.getRelative(BlockFace.NORTH_EAST)));
 	}
 	
 	/** Returns the violation level of the player for the specified tag truncated to a max of two decimal places. */

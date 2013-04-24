@@ -38,28 +38,41 @@ public abstract class SGCheck implements ICore {
 	// CREATE STATIC METHODS BELOW THAT WILL/COULD BE USED BY ALL SGCHECK INSTANCES THAT PERTAIN TO PLAYER.
 	public static void publishCheck(Class<?> clazz, Player sgPlayer, SGCheckTag tag) {
 
-		for(Player player : safeGuard.getServer().getOnlinePlayers()) {
-			if (safeGuard.sgPermissions.hasPermission(safeGuard.sgPlayerManager.getPlayer(player.getName()), SGPermissibleNodes.INFO_ALERTS)) {
-				player.sendMessage(getChatMessage(sgPlayer, tag));
+		if(safeGuard.sgConfig.getConfig().getBoolean("log.ingame")) {
+			for(Player player : safeGuard.getServer().getOnlinePlayers()) {
+				if (safeGuard.sgPermissions.hasPermission(safeGuard.sgPlayerManager.getPlayer(player.getName()), SGPermissibleNodes.INFO_ALERTS)) {
+					player.sendMessage(getChatMessage(sgPlayer, tag));
+				}
 			}
 		}
-		
+
 		if (safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()) == null || safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).getVL(tag) <= 0) { return; }
 
 		if (safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).getVL(tag) <= 10) {
 
-			safeGuard.sgLogManager.getConsoleLogger().logInfo	(getLogMessage(sgPlayer, tag));
-			safeGuard.sgLogManager.getFileLogger().logInfo		(getLogMessage(sgPlayer, tag));
-
+			if(safeGuard.sgConfig.getConfig().getBoolean("log.console")) {
+				safeGuard.sgLogManager.getConsoleLogger().logInfo	(getLogMessage(sgPlayer, tag));	
+			}
+			if(safeGuard.sgConfig.getConfig().getBoolean("log.file")) {
+				safeGuard.sgLogManager.getFileLogger().logInfo		(getLogMessage(sgPlayer, tag));	
+			}
 		} else if (safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).getVL(tag) <= 20) {
 
-			safeGuard.sgLogManager.getConsoleLogger().logWarn	(getLogMessage(sgPlayer, tag));
-			safeGuard.sgLogManager.getFileLogger().logWarn		(getLogMessage(sgPlayer, tag));
+			if(safeGuard.sgConfig.getConfig().getBoolean("log.console")) {
+				safeGuard.sgLogManager.getConsoleLogger().logWarn	(getLogMessage(sgPlayer, tag));	
+			}
+			if(safeGuard.sgConfig.getConfig().getBoolean("log.file")) {
+				safeGuard.sgLogManager.getFileLogger().logWarn		(getLogMessage(sgPlayer, tag));	
+			}
 
 		} else if (safeGuard.sgPlayerManager.getPlayer(sgPlayer.getName()).getVL(tag) >= safeGuard.sgConfig.getConfig().getDouble("checks." + clazz.getPackage().getName().split("\\.")[4].toLowerCase() + "_" + clazz.getSimpleName().replace("SGCheck", "").toLowerCase() + ".maxvl")){
 
-			safeGuard.sgLogManager.getConsoleLogger().logSevere (getLogMessage(sgPlayer, tag));
-			safeGuard.sgLogManager.getFileLogger().logSevere	(getLogMessage(sgPlayer, tag));
+			if(safeGuard.sgConfig.getConfig().getBoolean("log.console")) {
+				safeGuard.sgLogManager.getConsoleLogger().logSevere	(getLogMessage(sgPlayer, tag));	
+			}
+			if(safeGuard.sgConfig.getConfig().getBoolean("log.file")) {
+				safeGuard.sgLogManager.getFileLogger().logSevere		(getLogMessage(sgPlayer, tag));	
+			}
 
 			if(safeGuard.sgConfig.getConfig().getBoolean("checks." + clazz.getPackage().getName().split("\\.")[4].toLowerCase() + "_" + clazz.getSimpleName().replace("SGCheck", "").toLowerCase() + ".kick") && safeGuard.sgConfig.getConfig().getBoolean("global.kick")) {
 				if(safeGuard.getConfig().getBoolean("global.broadcastkick")) {
@@ -125,7 +138,7 @@ public abstract class SGCheck implements ICore {
 	public static boolean isCreativeFlight(Player sgPlayer) {
 		return (sgPlayer.getGameMode() == GameMode.CREATIVE || sgPlayer.getAllowFlight());
 	}
-	
+
 	/** Returns whether the player is in creative flight. */
 	public static boolean isCreative(Player sgPlayer) {
 		return (sgPlayer.getGameMode() == GameMode.CREATIVE);

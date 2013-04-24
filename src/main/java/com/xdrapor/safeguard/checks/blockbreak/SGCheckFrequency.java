@@ -25,38 +25,36 @@ public class SGCheckFrequency extends SGCheck {
 		BlockBreakEvent blockBreakEvent = (BlockBreakEvent)event;
 		Player sgPlayer = player.getPlayer();
 
-		if(isCreative(sgPlayer)) {
-			if(System.currentTimeMillis() - player.getLastBlockBrokenFreq() > 1000) {
-				player.setLastBlockBrokenFreq(System.currentTimeMillis());
-				player.incrementBlocksFreq();
-				if(player.getBlocksFreq() > sgConfig.getConfig().getInt("checks.blockbreak_frequency.maxbps")) {
-					blockBreakEvent.setCancelled(true);
+		if(System.currentTimeMillis() - player.getLastBlockBrokenFreq() > 1000) {
+			player.setLastBlockBrokenFreq(System.currentTimeMillis());
+			player.incrementBlocksFreq();
+			if(player.getBlocksFreq() > sgConfig.getConfig().getInt("checks.blockbreak_frequency.maxbps")) {
+				blockBreakEvent.setCancelled(true);
 
-					sgPlayer.sendMessage(sgConfig.getConfig().getString("checks.blockbreak_frequency.pendingmsg").replace("%c", String.valueOf(sgConfig.getConfig().getDouble("checks.blockbreak_frequency.cooldown"))).replaceAll("(&([a-f0-9]))", "\u00A7$2"));
+				sgPlayer.sendMessage(sgConfig.getConfig().getString("checks.blockbreak_frequency.pendingmsg").replace("%c", String.valueOf(sgConfig.getConfig().getDouble("checks.blockbreak_frequency.cooldown"))).replaceAll("(&([a-f0-9]))", "\u00A7$2"));
 
-					player.addVL(SGCheckTag.BLOCK_BREAKFREQUENCY, player.getBlocksFreq());
+				player.addVL(SGCheckTag.BLOCK_BREAKFREQUENCY, player.getBlocksFreq());
 
-					publishCheck(getClass(), sgPlayer, SGCheckTag.BLOCK_BREAKFREQUENCY);
-				} else {
-					player.resetBlocksFreq();
-				}
+				publishCheck(getClass(), sgPlayer, SGCheckTag.BLOCK_BREAKFREQUENCY);
 			} else {
-				player.incrementBlocksFreq();
-				if(player.getBlocksFreq() > sgConfig.getConfig().getInt("checks.blockbreak_frequency.maxbps")) {
-					blockBreakEvent.setCancelled(true);
-
-					sgPlayer.sendMessage(sgConfig.getConfig().getString("checks.blockbreak_frequency.pendingmsg").replace("%c", String.valueOf(sgConfig.getConfig().getDouble("checks.blockbreak_frequency.cooldown"))).replaceAll("(&([a-f0-9]))", "\u00A7$2"));
-
-					player.addVL(SGCheckTag.BLOCK_BREAKFREQUENCY, player.getBlocksFreq());
-
-					publishCheck(getClass(), sgPlayer, SGCheckTag.BLOCK_BREAKFREQUENCY);
-				}
-			}
-
-			if(System.currentTimeMillis() - player.getLastBlockBreakTime() > (sgConfig.getConfig().getDouble("checks.blockbreak_frequency.cooldown") * 1000)) {
 				player.resetBlocksFreq();
-				sgPlayer.sendMessage(sgConfig.getConfig().getString("checks.break_frequency.cooldownmsg").replaceAll("(&([a-f0-9]))", "\u00A7$2"));
 			}
+		} else {
+			player.incrementBlocksFreq();
+			if(player.getBlocksFreq() > sgConfig.getConfig().getInt("checks.blockbreak_frequency.maxbps")) {
+				blockBreakEvent.setCancelled(true);
+
+				sgPlayer.sendMessage(sgConfig.getConfig().getString("checks.blockbreak_frequency.pendingmsg").replace("%c", String.valueOf(sgConfig.getConfig().getDouble("checks.blockbreak_frequency.cooldown"))).replaceAll("(&([a-f0-9]))", "\u00A7$2"));
+
+				player.addVL(SGCheckTag.BLOCK_BREAKFREQUENCY, player.getBlocksFreq());
+
+				publishCheck(getClass(), sgPlayer, SGCheckTag.BLOCK_BREAKFREQUENCY);
+			}
+		}
+
+		if(System.currentTimeMillis() - player.getLastBlockBreakTime() > (sgConfig.getConfig().getDouble("checks.blockbreak_frequency.cooldown") * 1000)) {
+			player.resetBlocksFreq();
+			sgPlayer.sendMessage(sgConfig.getConfig().getString("checks.break_frequency.cooldownmsg").replaceAll("(&([a-f0-9]))", "\u00A7$2"));
 		}
 	}
 }
